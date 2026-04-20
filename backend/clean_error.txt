@@ -1,0 +1,9 @@
+SequelizeConnectionRefusedError
+    at ConnectionManager.connect (C:\Users\fehri\OneDrive\Bureau\projet pfe\my-project\backend\node_modules\sequelize\lib\dialects\mysql\connection-manager.js:92:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async ConnectionManager._connect (C:\Users\fehri\OneDrive\Bureau\projet pfe\my-project\backend\node_modules\sequelize\lib\dialects\abstract\connection-manager.js:222:24)
+    at async C:\Users\fehri\OneDrive\Bureau\projet pfe\my-project\backend\node_modules\sequelize\lib\dialects\abstract\connection-manager.js:174:32
+    at async ConnectionManager.getConnection (C:\Users\fehri\OneDrive\Bureau\projet pfe\my-project\backend\node_modules\sequelize\lib\dialects\abstract\connection-manager.js:197:7)
+    at async C:\Users\fehri\OneDrive\Bureau\projet pfe\my-project\backend\node_modules\sequelize\lib\sequelize.js:305:26
+    at async Sequelize.authenticate (C:\Users\fehri\OneDrive\Bureau\projet pfe\my-project\backend\node_modules\sequelize\lib\sequelize.js:457:5)
+    at async startServer (C:\Users\fehri\OneDrive\Bureau\projet pfe\my-project\backend\src\index.js:118:5)
