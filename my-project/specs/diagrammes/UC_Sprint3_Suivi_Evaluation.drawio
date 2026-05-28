@@ -1,0 +1,95 @@
+<mxfile version="24.4.0">
+  <diagram id="sprint3_usecase" name="Sprint 3">
+    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Boundary -->
+        <mxCell id="boundary" value="Sprint 3 : Suivi et Évaluation des Stagiaires" style="shape=umlFrame;whiteSpace=wrap;html=1;width=280;height=30;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="220" y="40" width="400" height="520" as="geometry" />
+        </mxCell>
+        
+        <!-- Actors -->
+        <mxCell id="tuteur" value="Tuteur" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="160" width="30" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="admin" value="Admin RH" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="400" width="30" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="stagiaire" value="Stagiaire" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="690" y="240" width="30" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Use Cases -->
+        <mxCell id="uc_tuteur_liste" value="Consulter la liste de&#xa;ses stagiaires" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="80" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_presences" value="Déclarer les présences&#xa;(Pointer)" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="170" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_evaluer" value="Évaluer les compétences&#xa;(Remplir la grille)" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="260" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_superviser" value="Superviser les présences&#xa;et évaluations" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="380" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_exporter" value="Exporter les rapports&#xa;d'évaluation" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="470" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_stag_dash" value="Consulter son espace&#xa;personnel" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="130" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_stag_presences" value="Suivre ses présences" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="220" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_stag_eval" value="Consulter son bilan&#xa;d'évaluation" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="310" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Connections (Associations) -->
+        <mxCell id="conn1" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="tuteur" target="uc_tuteur_liste">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn2" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="tuteur" target="uc_presences">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn3" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="tuteur" target="uc_evaluer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn4" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="admin" target="uc_superviser">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn5" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="admin" target="uc_exporter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn6" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="stagiaire" target="uc_stag_dash">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn7" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="stagiaire" target="uc_stag_presences">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn8" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="stagiaire" target="uc_stag_eval">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,25 @@
+\section{Introduction du Chapitre}
+Ce chapitre détaille les missions et les réalisations effectuées durant la période de stage. Notre travail a consisté à concevoir et développer une solution modulaire répondant aux besoins spécifiques de la DRH de GIAS Industries. Nous avons organisé notre intervention autour de plusieurs axes thématiques correspondant aux piliers fonctionnels de l'application.
+
+\section{Analyse et Spécification des Besoins}
+La première phase du stage a été consacrée à l'étude des processus existants. Nous avons identifié que la gestion des stagiaires suivait un flux de vie précis, allant de la candidature spontanée à l'évaluation finale. Cette analyse nous a permis de définir les rôles (Admin RH, Chef de Département, Tuteur, Stagiaire, Candidat) et les permissions associées.
+
+\section{Développement des Modules Fonctionnels}
+
+\subsection{Module d'Authentification et de Sécurité}
+Nous avons mis en place un système d'authentification robuste basé sur les tokens JWT et le hachage des mots de passe avec bcrypt. Une attention particulière a été portée à la sécurité avec l'implémentation du RBAC (Role-Based Access Control) pour restreindre l'accès aux données sensibles. De plus, une vérification par OTP via SMS (Twilio) a été intégrée pour sécuriser l'inscription des candidats.
+
+\subsection{Module de Gestion des Candidatures}
+Ce module permet aux candidats de soumettre leur CV et lettre de motivation en ligne. Côté administration, les responsables RH peuvent suivre l'avancement de chaque dossier (en attente, en cours, accepté, refusé) et communiquer directement avec les candidats via une messagerie intégrée.
+
+\subsection{Module de Suivi des Stagiaires et des Présences}
+Une fois le candidat accepté, il est converti en stagiaire. Le système permet alors un suivi rigoureux de sa présence quotidienne via un module de pointage. Les tuteurs peuvent valider ces présences et assurer un encadrement structuré.
+
+\subsection{Module d'Automatisation Administrative}
+L'un des apports majeurs de ce projet est la génération automatique des conventions de stage au format PDF. En extrayant les données du profil stagiaire et les paramètres de l'entreprise (GIAS Industries), le système produit des documents contractuels prêts à être signés, réduisant ainsi drastiquement les erreurs de saisie manuelle.
+
+\subsection{Module de Reporting et Tableaux de Bord}
+Pour offrir une vision analytique à la direction, nous avons développé un dashboard interactif. Il présente des KPIs tels que le taux de présence moyen, la répartition des stagiaires par département et les statistiques de recrutement mensuelles.
+
+\section{Conclusion du Chapitre}
+Le déroulement du stage a permis de couvrir l'intégralité du cycle de développement logiciel, de l'analyse à la mise en production des modules métier. Ces réalisations constituent une réponse directe aux problématiques d'efficience identifiées lors de l'étude préalable.

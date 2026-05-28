@@ -1,0 +1,110 @@
+@startuml Diagramme_Classe_Module_Auth
+
+' ============================================================
+'  DIAGRAMME DE CLASSE : MODULE AUTHENTIFICATION & UTILISATEURS
+' ============================================================
+
+scale 1.0
+hide empty members
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #4A6FA5
+  BorderThickness 1.5
+  HeaderBackgroundColor #E8EDF5
+  FontColor #2C3E50
+  FontSize 12
+  AttributeFontSize 10
+  StereotypeFontSize 9
+  StereotypeFontColor #7F8C8D
+  ArrowColor #5B7FC7
+}
+
+skinparam arrow {
+  Color #5B7FC7
+  FontColor #4A6FA5
+  FontSize 10
+  Thickness 1.5
+}
+
+class Utilisateur {
+  - id : Integer <<PK>>
+  - email : String(255) <<unique>>
+  - password_hash : String(255)
+  - nom : String(100)
+  - prenom : String(100)
+  - role : Enum {super_admin, admin_rh, tuteur, encadrant, stagiaire}
+  - telephone : String(20)
+  - photo_url : String(500)
+  - entity : Enum {GIAS, CSM, SHARED}
+  - departement_id : Integer <<FK>>
+  - is_active : Boolean
+  - last_login : DateTime
+  - created_at : DateTime
+  - updated_at : DateTime
+  __
+  + validatePassword(password) : Boolean
+  + getFullName() : String
+  + hasRole(role) : Boolean
+  + updatePassword(newPassword) : void
+  + updateLastLogin() : void
+  + deactivate() : void
+  + activate() : void
+  + toPublicJSON() : Object
+}
+
+class Admin {
+  - id : Integer <<PK>>
+  - utilisateur_id : Integer <<FK>>
+  - poste : String(255)
+  - service : String(255)
+  - permissions_level : Integer
+  - created_at : DateTime
+  - updated_at : DateTime
+}
+
+class LoginAttempt {
+  - id : Integer <<PK>>
+  - email : String(255)
+  - ip_address : String(45)
+  - user_agent : String(500)
+  - success : Boolean
+  - failure_reason : String(255)
+  - created_at : DateTime
+  __
+  + {static} record(data) : LoginAttempt
+  + {static} countRecentAttempts() : Integer
+}
+
+class PasswordReset {
+  - id : Integer <<PK>>
+  - user_id : Integer <<FK>>
+  - token_hash : String(255)
+  - expires_at : DateTime
+  - used_at : DateTime
+  - created_at : DateTime
+  __
+  + isValid() : Boolean
+  + isExpired() : Boolean
+  + markAsUsed() : void
+  + {static} createToken(userId) : Object
+  + {static} validateToken(userId, token) : Object
+}
+
+' Relations internes au module
+Utilisateur "1" -- "0..1" Admin : possède >
+PasswordReset "0..*" -- "1" Utilisateur : concerne >
+
+note right of Utilisateur
+  Classe centrale du système.
+  Tous les rôles héritent
+  du même modèle Utilisateur
+  différencié par l'attribut **role**.
+end note
+
+@enduml

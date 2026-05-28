@@ -1,0 +1,100 @@
+@startuml Diagramme_Classe_Module_Document
+
+' ============================================================
+'  DIAGRAMME DE CLASSE : MODULE DOCUMENTAIRE
+' ============================================================
+
+scale 1.0
+hide empty members
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #E74C3C
+  BorderThickness 1.5
+  HeaderBackgroundColor #FDEDEC
+  FontColor #2C3E50
+  FontSize 12
+  AttributeFontSize 10
+  StereotypeFontSize 9
+  StereotypeFontColor #7F8C8D
+  ArrowColor #E74C3C
+}
+
+skinparam arrow {
+  Color #E74C3C
+  FontColor #C0392B
+  FontSize 10
+  Thickness 1.5
+}
+
+class Convention {
+  - id : Integer <<PK>>
+  - candidature_id : Integer <<FK>>
+  - stagiaire_id : Integer <<FK>>
+  - numero : String(50) <<unique>>
+  - fichier_genere : String(500)
+  - fichier_signe : String(500)
+  - fichier_archive : String(500)
+  - statut : Enum {generee, en_signature, signee, annulee}
+  - date_generation : DateTime
+  - date_signature : DateTime
+  - date_signature_rh : DateTime
+  - commentaire : Text
+  - archive : Boolean
+  - date_archive : DateTime
+  - created_at : DateTime
+  __
+  + mettreEnSignature(commentaire) : void
+  + signer(commentaire) : void
+  + signerRH(commentaire) : void
+  + archiver() : void
+  + {static} generateNumber() : String
+}
+
+class Document {
+  - id : Integer <<PK>>
+  - stage_id : Integer <<FK>>
+  - type : Enum {ATTESTATION_STAGE, FEUILLE_PRESENCE, RAPPORT_EVALUATION, CONVENTION}
+  - fichier_path : String(255)
+  - fichier_nom : String(255)
+  - periode_mois : Integer
+  - periode_annee : Integer
+  - taille_fichier : Integer
+  - genere_par : Integer <<FK>>
+  - archive : Boolean
+  - date_archive : DateTime
+  - created_at : DateTime
+  __
+  + programmerArchivage() : void
+}
+
+class Stagiaire {
+  - id : Integer <<PK>>
+  - etablissement : String
+  - filiere : String
+}
+
+class Candidature {
+  - id : Integer <<PK>>
+  - nom : String
+  - prenom : String
+}
+
+class Utilisateur {
+  - id : Integer <<PK>>
+  - nom : String
+  - prenom : String
+}
+
+' Relations
+Convention "0..1" -- "1" Candidature : basée sur >
+Convention "0..*" -- "0..1" Stagiaire : signée par >
+Document "0..*" -- "1" Stagiaire : lié à >
+Document "0..*" -- "0..1" Utilisateur : généré par >
+
+@enduml

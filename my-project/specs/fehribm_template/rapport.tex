@@ -1,0 +1,143 @@
+ \documentclass[a4paper, oneside, 12pt, final]{extreport}
+ 
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks,linkcolor={blue},citecolor={blue},urlcolor={red}}  
+\usepackage{caption}
+
+\parindent 0cm
+\usepackage{makeidx}
+\makeindex
+
+\usepackage{setspace}
+\onehalfspacing 
+
+\usepackage[lined,boxed,commentsnumbered, french, ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{exemple}{Example}[chapter]
+
+\providecommand{\keywords}[1]{\textbf{\textit{Mots clés---}} #1}
+\providecommand{\keywordss}[1]{\textbf{\textit{Keywords---}} #1}
+
+\usepackage{etoolbox}
+\usepackage[nottoc]{tocbibind}
+
+\textwidth 18cm
+\textheight 26cm
+\topmargin -2.5cm
+\oddsidemargin -1cm
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+\usepackage[acronym,toc,section=chapter]{glossaries}
+\makeglossaries
+
+\pagenumbering{roman} 
+
+\usepackage{float}
+
+\begin{document}
+\thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page de Garde            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[t!]
+\centering
+\begin{minipage}[c]{0.22\textwidth}
+  \vspace{0pt}
+  \includegraphics[width=\linewidth]{logo_Kairouan.png}
+\end{minipage}%
+\hfill 
+\begin{minipage}[c]{0.5\textwidth}
+  \vspace{0pt}
+  \centering
+  \fontsize{11}{13} {\footnotesize \bf \selectfont République Tunisienne} \\[1ex]
+  \fontsize{11}{13} {\footnotesize \bf \selectfont Ministère de l'Enseignement Supérieur et \\ de la Recherche Scientifique} \\[1ex] 
+  \fontsize{11}{13} {\footnotesize \bf \selectfont \selectfont Université de Kairouan} \\[1ex]
+  \fontsize{11}{13} {\footnotesize \bf \selectfont\selectfont Institut Supérieur d'Informatique et de Gestion \\ de Kairouan}
+\end{minipage}%
+\hfill 
+\begin{minipage}[c]{0.2\textwidth}
+  \vspace{0pt}
+  \centering
+  \includegraphics[width=\linewidth]{logo_ISIGK.png}
+\end{minipage}
+\end{figure}
+
+\begin{center}
+    \vspace{1cm}
+    {\Huge\bfseries Projet de Fin d'Etudes \par}
+    \vspace{0.5cm} 
+
+    {\large En vue de l'obtention du Diplôme de \par}
+    \vspace{0.5cm} 
+
+    {\LARGE\bfseries Licence en Informatique de Gestion \par}
+    \vspace{0.5cm} 
+
+    {\LARGE\bfseries Parcours : Business Intelligence \par}
+    \vspace{1.5cm} 
+
+    {\Huge\bfseries Conception et Réalisation d'une Plateforme de Gestion des Stagiaires \par}
+    \vspace{1cm} 
+
+    \rule{\linewidth}{3pt}
+    \vspace{0.5cm} 
+
+    {\Large Elaboré par : \par}
+    \vspace{0.5cm} 
+    {\LARGE\bfseries Fehri Ben Mansour \par}
+    \vspace{1cm} 
+
+    {\Large Encadré par : \par}
+    \vspace{0.5cm} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l l }
+\large\bfseries M. Abdelbasset Trad & \large\bfseries Encadrant Académique \\
+\large\bfseries M. Hazem Belazi & \large\bfseries Encadrant Professionnel \\
+\end{tabular}
+\end{center}
+
+\vfill 
+\begin{center}
+    \vspace{1.5cm}
+    {\large Année Universitaire 2025-2026 \par}
+\end{center}
+
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+\pagenumbering{arabic}
+
+\chapter*{Introduction Générale}
+\addcontentsline{toc}{chapter}{Introduction Générale}
+\input{Chapitres/introduction}
+
+\chapter{Contexte général du projet}
+\label{chap:1}
+\input{Chapitres/chapitre1}
+
+\chapter{État de l'art}
+\label{chap:2}
+\input{Chapitres/chapitre2}
+
+\chapter{Spécification des besoins}
+\label{chap:3}
+\input{Chapitres/chapitre3}
+
+\chapter{Sprint 0 : Mise en place de l'environnement et site vitrine}
+\label{chap:4}
+\input{Chapitres/chapitre4}
+
+\end{document}

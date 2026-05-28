@@ -1,0 +1,152 @@
+@startuml Diagramme_Classe_Module_Stage
+
+' ============================================================
+'  DIAGRAMME DE CLASSE : MODULE STAGES & SUIVI
+' ============================================================
+
+scale 1.0
+hide empty members
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #9B59B6
+  BorderThickness 1.5
+  HeaderBackgroundColor #F4ECF7
+  FontColor #2C3E50
+  FontSize 12
+  AttributeFontSize 10
+  StereotypeFontSize 9
+  StereotypeFontColor #7F8C8D
+  ArrowColor #9B59B6
+}
+
+skinparam arrow {
+  Color #9B59B6
+  FontColor #8E44AD
+  FontSize 10
+  Thickness 1.5
+}
+
+class Stagiaire {
+  - id : Integer <<PK>>
+  - utilisateur_id : Integer <<FK>>
+  - etablissement : String(255)
+  - filiere : String(255)
+  - niveau_etude : String(100)
+  - annee_en_cours : Integer
+  - departement_id : Integer <<FK>>
+  - tuteur_id : Integer <<FK>>
+  - date_demarrage : Date
+  - date_fin : Date
+  - entity : Enum {GIAS, CSM, SHARED}
+  - statut : Enum {actif, termine, archive}
+  - date_archive : Date
+  - raison_archive : Text
+  - created_at : DateTime
+  - updated_at : DateTime
+  __
+  + archiver(raison) : void
+  + terminer() : void
+  + reactiver() : void
+}
+
+class Presence {
+  - id : Integer <<PK>>
+  - stage_id : Integer <<FK>>
+  - date : Date
+  - statut : Enum {P, AJ, ANJ, C, R, DA, TT, JF}
+  - heure_entree : Time
+  - heure_sortie : Time
+  - justificatif : String(500)
+  - commentaire : Text
+  - est_auto_pointe : Boolean
+  - valide : Boolean
+  - date_validation : DateTime
+  - valide_par : Integer <<FK>>
+  - saisie_par : Integer <<FK>>
+  - alerte_generee : Boolean
+  - created_at : DateTime
+  __
+  + getHeuresEffectuees() : Float
+  + valider(userId) : void
+  + invalider(commentaire) : void
+  + {static} calculateTauxPresence() : Integer
+  + {static} checkAbsencesConsecutives() : Boolean
+}
+
+class Evaluation {
+  - id : Integer <<PK>>
+  - stage_id : Integer <<FK>>
+  - tuteur_id : Integer <<FK>>
+  - type : Enum {INTEGRATION, MI_PARCOURS, FINALE}
+  - note_technique : Decimal(4,2)
+  - note_prof : Decimal(4,2)
+  - note_com : Decimal(4,2)
+  - note_totale : Decimal(5,2)
+  - mention : String(20)
+  - points_forts : Text
+  - axes_amelioration : Text
+  - commentaire_tuteur : Text
+  - statut : Enum {BROUILLON, SOUMISE, VALIDEE_RH, REFUSEE}
+  - rh_validee_par : Integer <<FK>>
+  - rh_date_validation : DateTime
+  - pdf_path : String(255)
+  - date_evaluation : Date
+  - created_at : DateTime
+  __
+  + calculerNote() : Object
+  + {static} getMentionFromNote(note) : Object
+}
+
+class StagiaireArchive {
+  - id : Integer <<PK>>
+  - original_id : Integer
+  - utilisateur_id : Integer <<FK>>
+  - etablissement : String(255)
+  - filiere : String(255)
+  - niveau_etude : String(100)
+  - departement_id : Integer <<FK>>
+  - tuteur_id : Integer <<FK>>
+  - date_demarrage : Date
+  - date_fin : Date
+  - entity : Enum {GIAS, CSM}
+  - statut : Enum {actif, termine, archive}
+  - date_archive : Date
+  - raison_archive : Text
+  - archived_at : DateTime
+  - retention_end_date : Date
+}
+
+class Utilisateur {
+  - id : Integer <<PK>>
+  - nom : String(100)
+  - prenom : String(100)
+}
+
+class Departement {
+  - id : Integer <<PK>>
+  - nom : String(100)
+}
+
+' Relations
+Stagiaire "1" *-- "0..*" Presence : enregistre >
+Stagiaire "1" *-- "0..*" Evaluation : reçoit >
+Stagiaire "0..*" -- "0..1" Departement : affecté à >
+Stagiaire "0..*" -- "0..1" Utilisateur : associé au compte >
+Stagiaire "0..*" -- "0..1" Utilisateur : encadré par (tuteur) >
+Evaluation "0..*" -- "1" Utilisateur : rédigée par (tuteur) >
+Evaluation "0..*" -- "0..1" Utilisateur : validée par (RH) >
+Presence "0..*" -- "0..1" Utilisateur : validée par >
+StagiaireArchive "0..*" -- "1" Utilisateur : archive de >
+
+note right of StagiaireArchive
+  Copie de rétention des données
+  stagiaires après archivage.
+end note
+
+@enduml

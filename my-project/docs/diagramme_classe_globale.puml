@@ -1,0 +1,482 @@
+@startuml Diagramme_Classe_Globale_StageFlow
+
+' ============================================================
+'  DIAGRAMME DE CLASSE GLOBALE — StageFlow
+'  Plateforme de Gestion de Stagiaires
+' ============================================================
+
+scale 0.85
+hide empty members
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 10
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #4A6FA5
+  BorderThickness 1.5
+  HeaderBackgroundColor #E8EDF5
+  FontColor #2C3E50
+  FontSize 11
+  AttributeFontSize 10
+  StereotypeFontSize 9
+  StereotypeFontColor #7F8C8D
+  ArrowColor #5B7FC7
+}
+
+skinparam package {
+  BackgroundColor #F5F7FB
+  BorderColor #A0B0D0
+  BorderThickness 1
+  FontSize 13
+  FontColor #34495E
+  FontStyle bold
+  Style rectangle
+  RoundCorner 8
+}
+
+skinparam arrow {
+  Color #5B7FC7
+  FontColor #4A6FA5
+  FontSize 9
+  Thickness 1.5
+}
+
+skinparam note {
+  BackgroundColor #FFFDE7
+  BorderColor #FBC02D
+  FontColor #333333
+  FontSize 9
+}
+
+' ============================================================
+'  CLASSES — MODULE AUTHENTIFICATION & UTILISATEURS
+' ============================================================
+
+package "Module Authentification & Utilisateurs" as pkg_auth #F0F3FA {
+
+  class Utilisateur {
+    - id : Integer <<PK>>
+    - email : String(255) <<unique>>
+    - password_hash : String(255)
+    - nom : String(100)
+    - prenom : String(100)
+    - role : Enum {super_admin, admin_rh,\n  tuteur, encadrant, stagiaire}
+    - telephone : String(20)
+    - photo_url : String(500)
+    - entity : Enum {GIAS, CSM, SHARED}
+    - departement_id : Integer <<FK>>
+    - is_active : Boolean
+    - last_login : DateTime
+    - created_at : DateTime
+    - updated_at : DateTime
+    __
+    + validatePassword(password) : Boolean
+    + getFullName() : String
+    + hasRole(role) : Boolean
+    + updatePassword(newPassword) : void
+    + updateLastLogin() : void
+    + deactivate() : void
+    + activate() : void
+    + toPublicJSON() : Object
+  }
+
+  class Admin {
+    - id : Integer <<PK>>
+    - utilisateur_id : Integer <<FK>>
+    - poste : String(255)
+    - service : String(255)
+    - permissions_level : Integer
+    - created_at : DateTime
+    - updated_at : DateTime
+  }
+
+  class LoginAttempt {
+    - id : Integer <<PK>>
+    - email : String(255)
+    - ip_address : String(45)
+    - user_agent : String(500)
+    - success : Boolean
+    - failure_reason : String(255)
+    - created_at : DateTime
+    __
+    + {static} record(data) : LoginAttempt
+    + {static} countRecentAttempts() : Integer
+  }
+
+  class PasswordReset {
+    - id : Integer <<PK>>
+    - user_id : Integer <<FK>>
+    - token_hash : String(255)
+    - expires_at : DateTime
+    - used_at : DateTime
+    - created_at : DateTime
+    __
+    + isValid() : Boolean
+    + isExpired() : Boolean
+    + markAsUsed() : void
+    + {static} createToken(userId) : Object
+    + {static} validateToken(userId, token) : Object
+  }
+}
+
+' ============================================================
+'  CLASSES — MODULE ORGANISATION
+' ============================================================
+
+package "Module Organisation" as pkg_org #F0FAF3 {
+
+  class Departement {
+    - id : Integer <<PK>>
+    - nom : String(100)
+    - code : String(20) <<unique>>
+    - description : Text
+    - responsable_id : Integer <<FK>>
+    - parent_id : Integer <<FK>>
+    - entity : Enum {GIAS, CSM, SHARED}
+    - capacite_accueil : Integer
+    - est_actif : Boolean
+    - created_at : DateTime
+    - updated_at : DateTime
+    __
+    + deactivate() : void
+    + activate() : void
+    + hasChildren() : Boolean
+  }
+}
+
+' ============================================================
+'  CLASSES — MODULE CANDIDATURES
+' ============================================================
+
+package "Module Candidatures" as pkg_cand #FFF8F0 {
+
+  class Candidature {
+    - id : Integer <<PK>>
+    - nom : String(100)
+    - prenom : String(100)
+    - email : String(255)
+    - telephone : String(20)
+    - etablissement : String(255)
+    - filiere : String(255)
+    - niveau_etude : String(100)
+    - departement_souhaite : Integer <<FK>>
+    - date_debut : Date
+    - date_fin : Date
+    - theme : Text
+    - type_stage : Enum {pfe, ete,\n  initiation, professionnel}
+    - cv_url : String(500)
+    - lm_url : String(500)
+    - statut : Enum {en_attente, en_cours,\n  documents_manquants, liste_attente,\n  acceptee, refusee, annulee}
+    - numero_suivi : String(20) <<unique>>
+    - score_matching : Integer
+    - commentaire : Text
+    - date_soumission : DateTime
+    - date_traitement : DateTime
+    - date_acceptation : DateTime
+    - date_refus : DateTime
+    - created_at : DateTime
+    __
+    + accepter(commentaire) : void
+    + refuser(commentaire) : void
+    + traiter() : void
+    + demanderDocuments(commentaire) : void
+    + annuler(commentaire) : void
+    + {static} generateSuiviNumber() : String
+  }
+}
+
+' ============================================================
+'  CLASSES — MODULE STAGES & SUIVI
+' ============================================================
+
+package "Module Stages & Suivi" as pkg_stage #F0F0FA {
+
+  class Stagiaire {
+    - id : Integer <<PK>>
+    - utilisateur_id : Integer <<FK>>
+    - etablissement : String(255)
+    - filiere : String(255)
+    - niveau_etude : String(100)
+    - annee_en_cours : Integer
+    - departement_id : Integer <<FK>>
+    - tuteur_id : Integer <<FK>>
+    - date_demarrage : Date
+    - date_fin : Date
+    - entity : Enum {GIAS, CSM, SHARED}
+    - statut : Enum {actif, termine, archive}
+    - date_archive : Date
+    - raison_archive : Text
+    - created_at : DateTime
+    - updated_at : DateTime
+    __
+    + archiver(raison) : void
+    + terminer() : void
+    + reactiver() : void
+  }
+
+  class Presence {
+    - id : Integer <<PK>>
+    - stage_id : Integer <<FK>>
+    - date : Date
+    - statut : Enum {P, AJ, ANJ, C,\n  R, DA, TT, JF}
+    - heure_entree : Time
+    - heure_sortie : Time
+    - justificatif : String(500)
+    - commentaire : Text
+    - est_auto_pointe : Boolean
+    - valide : Boolean
+    - date_validation : DateTime
+    - valide_par : Integer <<FK>>
+    - saisie_par : Integer <<FK>>
+    - alerte_generee : Boolean
+    - created_at : DateTime
+    __
+    + getHeuresEffectuees() : Float
+    + valider(userId) : void
+    + invalider(commentaire) : void
+    + {static} calculateTauxPresence() : Integer
+    + {static} checkAbsencesConsecutives() : Boolean
+  }
+
+  class Evaluation {
+    - id : Integer <<PK>>
+    - stage_id : Integer <<FK>>
+    - tuteur_id : Integer <<FK>>
+    - type : Enum {INTEGRATION,\n  MI_PARCOURS, FINALE}
+    - note_technique : Decimal(4,2)
+    - note_prof : Decimal(4,2)
+    - note_com : Decimal(4,2)
+    - note_totale : Decimal(5,2)
+    - mention : String(20)
+    - points_forts : Text
+    - axes_amelioration : Text
+    - commentaire_tuteur : Text
+    - statut : Enum {BROUILLON, SOUMISE,\n  VALIDEE_RH, REFUSEE}
+    - rh_validee_par : Integer <<FK>>
+    - rh_date_validation : DateTime
+    - pdf_path : String(255)
+    - date_evaluation : Date
+    - created_at : DateTime
+    __
+    + calculerNote() : Object
+    + {static} getMentionFromNote(note) : Object
+  }
+
+  class StagiaireArchive {
+    - id : Integer <<PK>>
+    - original_id : Integer
+    - utilisateur_id : Integer <<FK>>
+    - etablissement : String(255)
+    - filiere : String(255)
+    - niveau_etude : String(100)
+    - departement_id : Integer <<FK>>
+    - tuteur_id : Integer <<FK>>
+    - date_demarrage : Date
+    - date_fin : Date
+    - entity : Enum {GIAS, CSM}
+    - statut : Enum {actif, termine, archive}
+    - date_archive : Date
+    - raison_archive : Text
+    - archived_at : DateTime
+    - retention_end_date : Date
+  }
+}
+
+' ============================================================
+'  CLASSES — MODULE DOCUMENTAIRE
+' ============================================================
+
+package "Module Documentaire" as pkg_doc #FAF0F0 {
+
+  class Convention {
+    - id : Integer <<PK>>
+    - candidature_id : Integer <<FK>>
+    - numero : String(50) <<unique>>
+    - fichier_genere : String(500)
+    - fichier_signe : String(500)
+    - fichier_archive : String(500)
+    - statut : Enum {generee, en_signature,\n  signee, annulee}
+    - date_generation : DateTime
+    - date_signature : DateTime
+    - date_signature_rh : DateTime
+    - commentaire : Text
+    - archive : Boolean
+    - date_archive : DateTime
+    - created_at : DateTime
+    __
+    + mettreEnSignature(commentaire) : void
+    + signer(commentaire) : void
+    + signerRH(commentaire) : void
+    + archiver() : void
+    + {static} generateNumber() : String
+  }
+
+  class Document {
+    - id : Integer <<PK>>
+    - stage_id : Integer <<FK>>
+    - type : Enum {ATTESTATION_STAGE,\n  FEUILLE_PRESENCE,\n  RAPPORT_EVALUATION, CONVENTION}
+    - fichier_path : String(255)
+    - fichier_nom : String(255)
+    - periode_mois : Integer
+    - periode_annee : Integer
+    - taille_fichier : Integer
+    - genere_par : Integer <<FK>>
+    - archive : Boolean
+    - date_archive : DateTime
+    - created_at : DateTime
+    __
+    + programmerArchivage() : void
+  }
+}
+
+' ============================================================
+'  CLASSES — MODULE COMMUNICATION & AUDIT
+' ============================================================
+
+package "Module Communication & Audit" as pkg_com #F5F0FA {
+
+  class Notification {
+    - id : Integer <<PK>>
+    - utilisateur_id : Integer <<FK>>
+    - titre : String(255)
+    - message : Text
+    - type : Enum {CANDIDATURE_NOUVELLE,\n  CANDIDATURE_ACCEPTEE,\n  CANDIDATURE_REFUSEE, ABSENCE,\n  EVALUATION, DOCUMENT,\n  CONVENTION, PRESENCE, SYSTEM}
+    - lien : String(255)
+    - lue : Boolean
+    - date_lecture : DateTime
+    - donnees_extra : JSON
+    - created_at : DateTime
+  }
+
+  class Message {
+    - id : Integer <<PK>>
+    - expediteur_id : Integer <<FK>>
+    - destinataire_id : Integer <<FK>>
+    - stage_id : Integer <<FK>>
+    - sujet : String(255)
+    - contenu : Text
+    - lu : Boolean
+    - date_lecture : DateTime
+    - piece_jointe_nom : String(255)
+    - piece_jointe_chemin : String(255)
+    - piece_jointe_taille : Integer
+    - created_at : DateTime
+  }
+
+  class AuditLog {
+    - id : Integer <<PK>>
+    - user_id : Integer <<FK>>
+    - action : String(100)
+    - ip_address : String(45)
+    - user_agent : String(500)
+    - details : JSON
+    - resource_type : String(50)
+    - resource_id : Integer
+    - created_at : DateTime
+    __
+    + {static} log(data) : AuditLog
+    + {static} getUserLogs(userId) : List
+    + {static} getByAction(action) : List
+  }
+}
+
+' ============================================================
+'  ASSOCIATIONS
+' ============================================================
+
+' --- Utilisateur ↔ Admin (1 — 0..1) ---
+Utilisateur "1" -- "0..1" Admin : possède >
+
+' --- Utilisateur ↔ Stagiaire (1 — 0..*) ---
+Utilisateur "1" -- "0..*" Stagiaire : est lié à >
+
+' --- Utilisateur ↔ Departement (affectation) ---
+Utilisateur "0..*" -- "0..1" Departement : appartient à >
+
+' --- Departement ↔ Utilisateur (responsable) ---
+Departement "0..*" -- "0..1" Utilisateur : est dirigé par >
+
+' --- Departement ↔ Departement (hiérarchie) ---
+Departement "0..*" -- "0..1" Departement : parent >
+
+' --- Stagiaire ↔ Departement ---
+Stagiaire "0..*" -- "0..1" Departement : est affecté à >
+
+' --- Stagiaire ↔ Utilisateur (tuteur) ---
+Stagiaire "0..*" -- "0..1" Utilisateur : est encadré par >
+
+' --- Stagiaire ↔ Presence ---
+Stagiaire "1" -- "0..*" Presence : a des >
+
+' --- Stagiaire ↔ Evaluation ---
+Stagiaire "1" -- "0..*" Evaluation : est évalué >
+
+' --- Stagiaire ↔ Document ---
+Stagiaire "1" -- "0..*" Document : possède >
+
+' --- Stagiaire ↔ Message ---
+Stagiaire "1" -- "0..*" Message : concerne >
+
+' --- Stagiaire ↔ Convention ---
+Stagiaire "1" -- "0..*" Convention : signe >
+
+' --- Evaluation ↔ Utilisateur (tuteur) ---
+Evaluation "0..*" -- "1" Utilisateur : évalué par >
+
+' --- Evaluation ↔ Utilisateur (validateur RH) ---
+Evaluation "0..*" -- "0..1" Utilisateur : validé par >
+
+' --- Candidature ↔ Departement ---
+Candidature "0..*" -- "0..1" Departement : vers >
+
+' --- Presence ↔ Utilisateur (validateur) ---
+Presence "0..*" -- "0..1" Utilisateur : validée par >
+
+' --- Document ↔ Utilisateur (générateur) ---
+Document "0..*" -- "0..1" Utilisateur : généré par >
+
+' --- Message ↔ Utilisateur (expéditeur) ---
+Message "0..*" -- "1" Utilisateur : envoyé par >
+
+' --- Message ↔ Utilisateur (destinataire) ---
+Message "0..*" -- "1" Utilisateur : reçu par >
+
+' --- Notification ↔ Utilisateur ---
+Notification "0..*" -- "1" Utilisateur : destinée à >
+
+' --- AuditLog ↔ Utilisateur ---
+AuditLog "0..*" -- "0..1" Utilisateur : créé par >
+
+' --- PasswordReset ↔ Utilisateur ---
+PasswordReset "0..*" -- "1" Utilisateur : pour >
+
+' --- Convention ↔ Candidature ---
+Convention "0..1" -- "1" Candidature : basée sur >
+
+' ============================================================
+'  NOTES
+' ============================================================
+
+note top of Utilisateur
+  Classe centrale du système.
+  Tous les rôles héritent
+  du même modèle Utilisateur
+  différencié par l'attribut **role**.
+end note
+
+note bottom of Candidature
+  Le champ **score_matching**
+  est calculé automatiquement
+  par le module IA.
+end note
+
+note right of StagiaireArchive
+  Copie de rétention légale
+  (10 ans) des données
+  stagiaires après archivage.
+end note
+
+@enduml

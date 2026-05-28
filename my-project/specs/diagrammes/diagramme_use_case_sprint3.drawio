@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" modified="2026-05-21T13:45:00.000Z" agent="5.0" version="24.0.0" type="device">
+  <diagram id="usecase-sprint3" name="Sprint 3 - Présences &amp; Évaluations">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- SYSTEM BOUNDARY -->
+        <mxCell id="sys_box" value="StageFlow -- Sprint 3 (Présences &amp; Évaluations)" style="swimlane;whiteSpace=wrap;html=1;fontStyle=1;align=center;horizontal=1;startSize=30;fillColor=#1a237e;strokeColor=#3949ab;fontColor=#ffffff;rounded=1;arcSize=4;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="80" width="580" height="660" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES -->
+        <mxCell id="uc_presence_tuteur" value="Saisir &amp; Valider la présence&#xa;quotidienne d'un stagiaire" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4a148c;strokeColor=#7b1fa2;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="50" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_presence_stagiaire" value="Consulter son historique&#xa;de présences" style="ellipse;whiteSpace=wrap;html=1;fillColor=#004d40;strokeColor=#00796b;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="150" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_presence_admin" value="Consulter &amp; Exporter les rapports&#xa;de présences globaux" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b71c1c;strokeColor=#e53935;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="260" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_eval_tuteur" value="Évaluer le stagiaire&#xa;(Fiche d'évaluation)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4a148c;strokeColor=#7b1fa2;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="380" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_calcul_note" value="Calculer note totale automatiquement" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4a148c;strokeColor=#7b1fa2;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="490" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_eval_stagiaire" value="Consulter ses fiches d'évaluations" style="ellipse;whiteSpace=wrap;html=1;fillColor=#004d40;strokeColor=#00796b;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="575" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- INCLUDE RELATION -->
+        <mxCell id="rel_eval_calc" style="endArrow=open;endSize=12;dashed=1;html=1;strokeColor=#7b1fa2;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="uc_eval_tuteur" target="uc_calcul_note" parent="sys_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_eval_calc" value="&lt;i&gt;&amp;lt;&amp;lt;include&amp;gt;&amp;gt;&lt;/i&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#4a148c;" vertex="1" connectable="0" parent="rel_eval_calc">
+          <mxGeometry x="0.1" relative="1" as="geometry"><mxPoint x="35" as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- ACTORS -->
+        <mxCell id="act_tuteur" value="Tuteur" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#4a148c;strokeColor=#7b1fa2;fontColor=#4a148c;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="40" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_stagiaire" value="Stagiaire" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#004d40;strokeColor=#00796b;fontColor=#004d40;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="470" width="40" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_admin" value="Admin RH" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#b71c1c;strokeColor=#e53935;fontColor=#b71c1c;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="960" y="260" width="40" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- LINKS -->
+        <!-- Tuteur links -->
+        <mxCell id="l_tut_pres" style="endArrow=none;html=1;strokeColor=#7b1fa2;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_tuteur" target="uc_presence_tuteur" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_tut_eval" style="endArrow=none;html=1;strokeColor=#7b1fa2;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_tuteur" target="uc_eval_tuteur" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Stagiaire links -->
+        <mxCell id="l_stag_pres" style="endArrow=none;html=1;strokeColor=#00796b;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_stagiaire" target="uc_presence_stagiaire" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_stag_eval" style="endArrow=none;html=1;strokeColor=#00796b;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_stagiaire" target="uc_eval_stagiaire" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Admin links -->
+        <mxCell id="l_admin_pres" style="endArrow=none;html=1;strokeColor=#e53935;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_admin" target="uc_presence_admin" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

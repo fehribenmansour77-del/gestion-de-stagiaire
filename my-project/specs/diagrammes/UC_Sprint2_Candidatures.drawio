@@ -1,0 +1,68 @@
+<mxfile version="24.4.0">
+  <diagram id="sprint2_usecase" name="Sprint 2">
+    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Boundary -->
+        <mxCell id="boundary" value="Sprint 2 : Gestion des Candidatures et Administration" style="shape=umlFrame;whiteSpace=wrap;html=1;width=320;height=30;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="200" y="80" width="400" height="420" as="geometry" />
+        </mxCell>
+        
+        <!-- Actors -->
+        <mxCell id="candidat" value="Candidat" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="160" width="30" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="admin" value="Admin RH" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="660" y="280" width="30" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Use Cases -->
+        <mxCell id="uc_deposer" value="Déposer une candidature&#xa;en ligne" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="140" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_suivre" value="Suivre l&#39;état de&#xa;sa candidature" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="230" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_consulter" value="Consulter la liste&#xa;des candidatures" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="220" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_traiter" value="Traiter une candidature&#xa;(Accepter/Refuser)" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="320" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_generer" value="Générer automatiquement&#xa;le compte Stagiaire" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="420" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Connections (Associations) -->
+        <mxCell id="conn1" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="candidat" target="uc_deposer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn2" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="candidat" target="uc_suivre">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn3" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="admin" target="uc_consulter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn4" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="admin" target="uc_traiter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Includes -->
+        <mxCell id="inc1" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;endSize=12;dashed=1;verticalAlign=bottom;" edge="1" parent="1" source="uc_traiter" target="uc_generer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

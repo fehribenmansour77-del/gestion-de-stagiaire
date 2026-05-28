@@ -1,0 +1,66 @@
+@startuml Diagramme_Classe_Module_Org
+
+' ============================================================
+'  DIAGRAMME DE CLASSE : MODULE ORGANISATION
+' ============================================================
+
+scale 1.0
+hide empty members
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #2ECC71
+  BorderThickness 1.5
+  HeaderBackgroundColor #E8F8F5
+  FontColor #2C3E50
+  FontSize 12
+  AttributeFontSize 10
+  StereotypeFontSize 9
+  StereotypeFontColor #7F8C8D
+  ArrowColor #2ECC71
+}
+
+skinparam arrow {
+  Color #2ECC71
+  FontColor #27AE60
+  FontSize 10
+  Thickness 1.5
+}
+
+class Departement {
+  - id : Integer <<PK>>
+  - nom : String(100)
+  - code : String(20) <<unique>>
+  - description : Text
+  - responsable_id : Integer <<FK>>
+  - parent_id : Integer <<FK>>
+  - entity : Enum {GIAS, CSM, SHARED}
+  - capacite_accueil : Integer
+  - est_actif : Boolean
+  - created_at : DateTime
+  - updated_at : DateTime
+  __
+  + deactivate() : void
+  + activate() : void
+  + hasChildren() : Boolean
+}
+
+class Utilisateur {
+  - id : Integer <<PK>>
+  - nom : String(100)
+  - prenom : String(100)
+  - role : Enum
+  - email : String(255)
+}
+
+' Relations
+Departement "0..*" -- "0..1" Departement : parent/sous-département >
+Departement "0..*" -- "0..1" Utilisateur : dirigé par (responsable) >
+Utilisateur "0..*" -- "0..1" Departement : appartient à >
+
+@enduml

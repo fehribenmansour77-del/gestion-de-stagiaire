@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Diagramme de Classe Globale — StageFlow</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; padding: 20px; }
+h1 { text-align: center; font-size: 18px; color: #333; margin-bottom: 20px; }
+.canvas { position: relative; width: 1550px; height: 1050px; margin: 0 auto; border: 1px solid #ddd; background: #fff; }
+.cls { position: absolute; border: 2px solid #D4881E; background: #fff; min-width: 200px; font-size: 10px; }
+.cls .title { background: #F5A623; color: #fff; font-weight: bold; font-size: 12px; text-align: center; padding: 5px 8px; border-bottom: 2px solid #D4881E; }
+.cls .attrs, .cls .meths { padding: 4px 8px; color: #333; line-height: 1.6; }
+.cls .sep { border-top: 1px solid #D4881E; }
+.cls .meths { border-top: 1px solid #D4881E; }
+svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+svg line, svg path { stroke: #555; stroke-width: 1.5; fill: none; }
+svg text { font-size: 9px; fill: #444; font-family: 'Segoe UI', sans-serif; }
+svg polygon { fill: #555; stroke: #555; }
+svg polygon.hollow { fill: #fff; stroke: #555; stroke-width: 1.5; }
+.label { position: absolute; font-size: 8px; color: #555; background: #fff; padding: 0 3px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<h1>Diagramme de Classe Globale — StageFlow</h1>
+<div class="canvas" id="canvas">
+
+<!-- ROW 1 -->
+<div class="cls" id="dept" style="left:20px;top:10px;width:240px;">
+<div class="title">Departement</div>
+<div class="attrs">- id : Integer «PK»<br>- nom : String<br>- code : String «unique»<br>- description : Text<br>- responsable_id : Integer «FK»<br>- parent_id : Integer «FK»<br>- entity : Enum {GIAS, CSM}<br>- capacite_accueil : Integer<br>- est_actif : Boolean</div>
+<div class="meths">+ deactivate() : void<br>+ activate() : void</div>
+</div>
+
+<div class="cls" id="user" style="left:320px;top:10px;width:260px;">
+<div class="title">Utilisateur</div>
+<div class="attrs">- id : Integer «PK»<br>- email : String «unique»<br>- password_hash : String<br>- nom : String<br>- prenom : String<br>- role : Enum<br>- telephone : String<br>- entity : Enum {GIAS, CSM}<br>- departement_id : Integer «FK»<br>- is_active : Boolean<br>- last_login : DateTime</div>
+<div class="meths">+ validatePassword() : Boolean<br>+ getFullName() : String<br>+ hasRole(role) : Boolean<br>+ toPublicJSON() : Object</div>
+</div>
+
+<div class="cls" id="admin" style="left:640px;top:10px;width:220px;">
+<div class="title">Admin</div>
+<div class="attrs">- id : Integer «PK»<br>- utilisateur_id : Integer «FK»<br>- poste : String<br>- service : String<br>- permissions_level : Integer</div>
+</div>
+
+<div class="cls" id="pwreset" style="left:920px;top:10px;width:220px;">
+<div class="title">PasswordReset</div>
+<div class="attrs">- id : Integer «PK»<br>- user_id : Integer «FK»<br>- token_hash : String<br>- expires_at : DateTime<br>- used_at : DateTime</div>
+<div class="meths">+ isValid() : Boolean<br>+ createToken() : Object</div>
+</div>
+
+<div class="cls" id="login" style="left:1200px;top:10px;width:220px;">
+<div class="title">LoginAttempt</div>
+<div class="attrs">- id : Integer «PK»<br>- email : String<br>- ip_address : String<br>- success : Boolean<br>- failure_reason : String</div>
+<div class="meths">+ record(data) : LoginAttempt</div>
+</div>
+
+<!-- ROW 2 -->
+<div class="cls" id="cand" style="left:20px;top:360px;width:240px;">
+<div class="title">Candidature</div>
+<div class="attrs">- id : Integer «PK»<br>- nom : String<br>- prenom : String<br>- email : String<br>- etablissement : String<br>- filiere : String<br>- departement_souhaite : Integer «FK»<br>- type_stage : Enum<br>- cv_url : String<br>- statut : Enum<br>- numero_suivi : String «unique»<br>- score_matching : Integer</div>
+<div class="meths">+ accepter() : void<br>+ refuser() : void<br>+ traiter() : void</div>
+</div>
+
+<div class="cls" id="pres" style="left:310px;top:360px;width:230px;">
+<div class="title">Presence</div>
+<div class="attrs">- id : Integer «PK»<br>- stage_id : Integer «FK»<br>- date : Date<br>- statut : Enum {P, AJ, ANJ}<br>- heure_entree : Time<br>- heure_sortie : Time<br>- justificatif : String<br>- valide : Boolean<br>- valide_par : Integer «FK»</div>
+<div class="meths">+ getHeuresEffectuees() : Float<br>+ valider(userId) : void</div>
+</div>
+
+<div class="cls" id="stag" style="left:590px;top:360px;width:250px;">
+<div class="title">Stagiaire</div>
+<div class="attrs">- id : Integer «PK»<br>- utilisateur_id : Integer «FK»<br>- etablissement : String<br>- filiere : String<br>- niveau_etude : String<br>- departement_id : Integer «FK»<br>- tuteur_id : Integer «FK»<br>- date_demarrage : Date<br>- date_fin : Date<br>- entity : Enum {GIAS, CSM}<br>- statut : Enum {actif, termine}</div>
+<div class="meths">+ archiver(raison) : void<br>+ terminer() : void<br>+ reactiver() : void</div>
+</div>
+
+<div class="cls" id="eval" style="left:900px;top:360px;width:250px;">
+<div class="title">Evaluation</div>
+<div class="attrs">- id : Integer «PK»<br>- stage_id : Integer «FK»<br>- tuteur_id : Integer «FK»<br>- type : Enum<br>- note_technique : Decimal<br>- note_prof : Decimal<br>- note_com : Decimal<br>- note_totale : Decimal<br>- mention : String<br>- statut : Enum</div>
+<div class="meths">+ calculerNote() : Object<br>+ getMention() : String</div>
+</div>
+
+<div class="cls" id="arch" style="left:1200px;top:400px;width:220px;">
+<div class="title">StagiaireArchive</div>
+<div class="attrs">- id : Integer «PK»<br>- original_id : Integer<br>- utilisateur_id : Integer «FK»<br>- departement_id : Integer «FK»<br>- date_archive : Date<br>- archived_at : DateTime<br>- retention_end_date : Date</div>
+</div>
+
+<!-- ROW 3 -->
+<div class="cls" id="conv" style="left:20px;top:720px;width:230px;">
+<div class="title">Convention</div>
+<div class="attrs">- id : Integer «PK»<br>- candidature_id : Integer «FK»<br>- numero : String «unique»<br>- fichier_genere : String<br>- fichier_signe : String<br>- statut : Enum<br>- date_generation : DateTime<br>- archive : Boolean</div>
+<div class="meths">+ signer() : void<br>+ archiver() : void</div>
+</div>
+
+<div class="cls" id="doc" style="left:290px;top:720px;width:230px;">
+<div class="title">Document</div>
+<div class="attrs">- id : Integer «PK»<br>- stage_id : Integer «FK»<br>- type : Enum<br>- fichier_path : String<br>- fichier_nom : String<br>- taille_fichier : Integer<br>- genere_par : Integer «FK»<br>- archive : Boolean</div>
+<div class="meths">+ programmerArchivage() : void</div>
+</div>
+
+<div class="cls" id="msg" style="left:570px;top:720px;width:240px;">
+<div class="title">Message</div>
+<div class="attrs">- id : Integer «PK»<br>- expediteur_id : Integer «FK»<br>- destinataire_id : Integer «FK»<br>- stage_id : Integer «FK»<br>- sujet : String<br>- contenu : Text<br>- lu : Boolean<br>- piece_jointe_nom : String</div>
+</div>
+
+<div class="cls" id="notif" style="left:860px;top:720px;width:230px;">
+<div class="title">Notification</div>
+<div class="attrs">- id : Integer «PK»<br>- utilisateur_id : Integer «FK»<br>- titre : String<br>- message : Text<br>- type : Enum<br>- lien : String<br>- lue : Boolean<br>- donnees_extra : JSON</div>
+</div>
+
+<div class="cls" id="audit" style="left:1140px;top:720px;width:230px;">
+<div class="title">AuditLog</div>
+<div class="attrs">- id : Integer «PK»<br>- user_id : Integer «FK»<br>- action : String<br>- ip_address : String<br>- details : JSON<br>- resource_type : String<br>- resource_id : Integer</div>
+<div class="meths">+ log(data) : AuditLog<br>+ getUserLogs() : List</div>
+</div>
+
+<svg id="lines"></svg>
+</div>
+
+<script>
+function getBox(id) {
+  const el = document.getElementById(id);
+  const c = document.getElementById('canvas');
+  return {
+    x: el.offsetLeft, y: el.offsetTop,
+    w: el.offsetWidth, h: el.offsetHeight,
+    cx: el.offsetLeft + el.offsetWidth/2,
+    cy: el.offsetTop + el.offsetHeight/2,
+    r: el.offsetLeft + el.offsetWidth,
+    b: el.offsetTop + el.offsetHeight
+  };
+}
+
+const svg = document.getElementById('lines');
+const NS = 'http://www.w3.org/2000/svg';
+
+function drawLine(x1,y1,x2,y2,label,type) {
+  const g = document.createElementNS(NS,'g');
+  const line = document.createElementNS(NS,'line');
+  line.setAttribute('x1',x1); line.setAttribute('y1',y1);
+  line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+  g.appendChild(line);
+
+  // Diamond for composition
+  if (type === 'comp') {
+    const angle = Math.atan2(y2-y1, x2-x1);
+    const sz = 8;
+    const px = x2, py = y2;
+    const pts = [
+      [px - sz*Math.cos(angle) + sz*0.5*Math.sin(angle), py - sz*Math.sin(angle) - sz*0.5*Math.cos(angle)],
+      [px, py],
+      [px - sz*Math.cos(angle) - sz*0.5*Math.sin(angle), py - sz*Math.sin(angle) + sz*0.5*Math.cos(angle)],
+      [px - 2*sz*Math.cos(angle), py - 2*sz*Math.sin(angle)]
+    ];
+    const poly = document.createElementNS(NS,'polygon');
+    poly.setAttribute('points', pts.map(p=>p.join(',')).join(' '));
+    g.appendChild(poly);
+  }
+
+  // Arrow for inheritance
+  if (type === 'inherit') {
+    const angle = Math.atan2(y2-y1, x2-x1);
+    const sz = 10;
+    const pts = [
+      [x2, y2],
+      [x2 - sz*Math.cos(angle-0.4), y2 - sz*Math.sin(angle-0.4)],
+      [x2 - sz*Math.cos(angle+0.4), y2 - sz*Math.sin(angle+0.4)]
+    ];
+    const poly = document.createElementNS(NS,'polygon');
+    poly.setAttribute('points', pts.map(p=>p.join(',')).join(' '));
+    poly.classList.add('hollow');
+    g.appendChild(poly);
+  }
+
+  if (label) {
+    const t = document.createElementNS(NS,'text');
+    const mx = (x1+x2)/2, my = (y1+y2)/2 - 5;
+    t.setAttribute('x', mx); t.setAttribute('y', my);
+    t.setAttribute('text-anchor','middle');
+    // Add background rect
+    const bg = document.createElementNS(NS,'rect');
+    t.textContent = label;
+    g.appendChild(t);
+    // Measure after append
+    svg.appendChild(g);
+    const bb = t.getBBox();
+    bg.setAttribute('x', bb.x-2); bg.setAttribute('y', bb.y-1);
+    bg.setAttribute('width', bb.width+4); bg.setAttribute('height', bb.height+2);
+    bg.setAttribute('fill','#fff'); bg.setAttribute('stroke','none');
+    g.insertBefore(bg, t);
+    return;
+  }
+  svg.appendChild(g);
+}
+
+// Draw all associations
+const u = getBox('user'), a = getBox('admin'), d = getBox('dept');
+const pr = getBox('pwreset'), li = getBox('login');
+const s = getBox('stag'), c = getBox('cand'), p = getBox('pres'), e = getBox('eval');
+const ar = getBox('arch');
+const cv = getBox('conv'), dc = getBox('doc'), m = getBox('msg'), n = getBox('notif'), au = getBox('audit');
+
+// User -> Admin (1 — 0..1)
+drawLine(u.r, u.y+30, a.x, a.y+30, '1          0..1');
+
+// User -> PasswordReset (1 — 0..*)
+drawLine(u.r, u.y+60, pr.x, pr.y+40, '1          0..*');
+
+// User -> Dept (0..* — 0..1)
+drawLine(u.x, u.y+50, d.r, d.y+50, '0..*     0..1');
+
+// User -> Stagiaire (1 — 0..*)
+drawLine(u.cx, u.b, s.cx, s.y, '1     0..*', 'comp');
+
+// Stag -> Dept (0..* — 0..1)
+drawLine(s.x, s.y+30, d.cx, d.b, '0..*     0..1');
+
+// Stag -> Presence (1 — 0..*)
+drawLine(s.x, s.cy, p.r, p.cy, '1     0..*', 'comp');
+
+// Stag -> Evaluation (1 — 0..*)
+drawLine(s.r, s.cy, e.x, e.cy, '1     0..*', 'comp');
+
+// Stag -> Document (1 — 0..*)
+drawLine(s.cx-30, s.b, dc.cx, dc.y, '1     0..*', 'comp');
+
+// Stag -> Message (1 — 0..*)
+drawLine(s.cx+30, s.b, m.cx, m.y, '1     0..*');
+
+// Stag -> Archive
+drawLine(s.r+50, s.cy+30, ar.x, ar.cy, '«archive»', 'inherit');
+
+// Cand -> Dept
+drawLine(c.cx, c.y, d.cx-30, d.b, '0..*     0..1');
+
+// Conv -> Cand
+drawLine(cv.cx, cv.y, c.cx, c.b, '0..1     1');
+
+// Eval -> User (tuteur)
+drawLine(e.cx, e.y, u.r-30, u.b, '0..*     1');
+
+// Notif -> User
+drawLine(n.cx, n.y, u.cx+40, u.b, '0..*     1');
+
+// Msg -> User
+drawLine(m.cx, m.y, u.cx, u.b+5, '0..*     1');
+
+// Audit -> User
+drawLine(au.cx, au.y, u.r, u.b-20, '0..*     0..1');
+
+// Doc -> User
+drawLine(dc.cx, dc.y, u.x+30, u.b, '0..*     0..1');
+
+// Presence -> User (validateur)
+drawLine(p.cx, p.y, u.x, u.b-40, '0..*     0..1');
+</script>
+</body>
+</html>

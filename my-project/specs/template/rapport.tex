@@ -1,0 +1,245 @@
+ \documentclass[a4paper, oneside, 12pt, final]{extreport}
+ 
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks,linkcolor={blue},citecolor={blue},urlcolor={red}}  
+
+\parindent 0cm
+\usepackage{makeidx}
+\makeindex
+
+\usepackage{setspace}
+\onehalfspacing % Set 1.5 line spacing as per guide
+
+\newcommand{\appendixpagenumbering}{
+  \break
+  \pagenumbering{arabic}
+  \renewcommand{\thepage}{\thechapter-\arabic{page}}
+}
+
+\usepackage[lined,boxed,commentsnumbered, french, ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{exemple}{Example}[chapter]
+
+
+\providecommand{\keywords}[1]{\textbf{\textit{Mots clés---}} #1}
+\providecommand{\keywordss}[1]{\textbf{\textit{Keywords---}} #1}
+
+\usepackage{etoolbox}
+\usepackage[nottoc]{tocbibind}
+
+\textwidth 18cm
+\textheight 26cm
+\topmargin -2.5cm
+\oddsidemargin -1cm
+% set font encoding for PDFLaTeX or XeLaTeX
+\usepackage{ifxetex}
+\ifxetex
+  \usepackage{fontspec}
+\else
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\fi
+
+\newcommand{\specialcell}[1]{%
+  \begin{tabularx}{\textwidth}{@{}X@{}}#1\end{tabularx}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Add your own commands here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\MyCommand} {%
+  Does nothing really%
+}
+ \usepackage{graphics}
+\usepackage{graphicx}
+
+
+\usepackage[acronym,toc,section=chapter]{glossaries}
+\makeglossaries
+
+\newacronym{abc}{ABC}{A contrived acronym}
+\newacronym{efg}{EFG}{Another acronym}
+\newacronym{svm}{SVM}{Support Vector Machines}
+
+\pagenumbering{roman} 
+
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page de Garde            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- Header Section ---
+\begin{figure}[t!] % Use figure* for full width if needed, but figure should work
+\centering
+\begin{minipage}[c]{0.22\textwidth} % Adjust width as needed
+  \vspace{0pt} % Align tops
+  \includegraphics[width=\linewidth]{logo_Kairouan.png} % University Logo
+\end{minipage}%
+\hfill % Space between elements
+\begin{minipage}[c]{0.5\textwidth} % Adjust width as needed
+  \vspace{0pt} % Align tops
+  \centering
+  \fontsize{11}{13} {\footnotesize \bf \selectfont République Tunisienne} \\[1ex]
+  \fontsize{11}{13} {\footnotesize \bf \selectfont Ministère de l'Enseignement Supérieur et \\ de la Recherche Scientifique} \\[1ex] % Small vertical space
+  \fontsize{11}{13} {\footnotesize \bf \selectfont \selectfont Université de Kairouan} \\[1ex]
+  \fontsize{11}{13} {\footnotesize \bf \selectfont\selectfont Institut Supérieur d'Informatique et de Gestion \\ de Kairouan}
+\end{minipage}%
+\hfill % Space between elements
+\begin{minipage}[c]{0.2\textwidth} % Adjust width as needed
+  \vspace{0pt} % Align tops
+  \centering
+  \includegraphics[width=\linewidth]{logo_ISIGK.png} % ISO Logo
+\end{minipage}
+\end{figure}
+
+\hfill % Space between elements
+
+% --- Main Title Section ---
+\begin{center}
+    {\Huge\bfseries Projet de Fin d'Etudes \par}
+    \vspace{0.5cm} % Space below main title
+
+    {\large En vue de l'obtention du Diplôme de \par}
+    \vspace{0.5cm} % Space below subtitle
+
+    {\LARGE\bfseries Licence en Informatique de Gestion \par}
+    \vspace{0.5cm} % Space below degree name
+
+    {\LARGE\bfseries Parcours : Business Intelligence \par}
+    \vspace{1.5cm} % Space before first rule
+
+    {\Huge\bfseries Conception et Réalisation d'une Plateforme de Gestion des Stagiaires \par} % Updated title
+    \vspace{1cm} % Space before second rule
+
+    \rule{\linewidth}{3pt} % Second horizontal rule
+    \vspace{0.5cm} % Space below second rule
+
+    {\Large Elaboré par : \par}
+    \vspace{0.5cm} % Space below label
+    {\LARGE\bfseries Fehri Ben Mansour \par} % Updated Author Name
+    \vspace{1cm} % Space before Supervisor section
+
+    {\Large Encadré par : \par}
+    \vspace{0.5cm} % Space below label
+\end{center}
+% Supervisor Layout (using minipages for better control)
+\begin{center}
+\begin{tabular}{ l l }
+\large\bfseries M. Abdelbasset Trad & \large\bfseries Encadrant Académique \\
+\large\bfseries M. Hazem Belazi & \large\bfseries Encadrant Professionnel \\
+\end{tabular}
+\end{center}
+
+% --- Footer Section ---
+\vfill % Pushes the following content to the bottom
+\begin{center}
+    \vspace{1.5cm}
+    {\large Année Universitaire 2025-2026 \par} % Placeholder for year
+\end{center}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dédicace et Remerciements
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\chapter*{Dedication}
+\chapter*{Dedicace}
+%\addcontentsline{toc}{chapter}{Dedication}
+\thispagestyle{empty}
+
+  
+
+\begin{center}
+{\it 
+	
+A ... pour son(leur) sacrifice et son(leur) soutien, \\
+en témoignage de mon infinie reconnaissance et mon profond attachement \\
+\vspace{1cm}
+A tous ceux qui me sont chers...
+
+}
+\end{center}
+ 
+\chapter*{Remerciements}
+ 
+\thispagestyle{empty}
+ 
+................ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Divers chapitres
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+ 
+
+\listoffigures
+ 
+\listoftables
+ 
+\listofalgorithms
+\addcontentsline{toc}{chapter}{Liste des algorithmes}
+ 
+
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
+
+\printglossaries
+ 
+
+\newpage
+%\pagenumbering{arabic}
+
+  \chapter*{Introduction Générale}
+\label{chap:introduction}
+\addcontentsline{toc}{chapter}{Introduction Générale}
+\input{Chapitres/introduction}
+
+
+\chapter{Contexte général du projet}
+\label{chap:1}
+\input{Chapitres/chapitre1.tex}
+
+\chapter{État de l'art}
+\label{chap:2}
+\input{Chapitres/chapitre2.tex}
+
+\chapter{Spécification des besoins}
+\label{chap:3}
+\input{Chapitres/chapitre3.tex}
+
+\chapter{Sprint 0 : Mise en place de l'environnement et site vitrine}
+\label{chap:4}
+\input{Chapitres/chapitre4.tex}
+
+\chapter*{Conclusion et Perspectives}
+\label{chap:conclusion}
+\addcontentsline{toc}{chapter}{Conclusion et Perspectives}
+\input{Chapitres/conclusion}
+
+
+\nocite{*}
+\bibliographystyle{apalike}
+%\bibliographystyle{plain}
+
+\bibliography{Biblio.bib}
+\newpage
+\appendix
+\appendixpagenumbering
+\addcontentsline{toc}{chapter}{Annexes}
+ 
+
+\printindex
+ 
+\input{Chapitres/abstract}
+
+
+\end{document}

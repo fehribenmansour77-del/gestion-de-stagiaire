@@ -1,0 +1,45 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="500" fill="white" />
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Organisation Logique MVC - StageFlow</text>
+
+  <!-- Definitions for arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+    </marker>
+  </defs>
+
+  <!-- View Block -->
+  <rect x="50" y="100" width="200" height="120" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2" />
+  <text x="150" y="145" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#1565C0">Vue</text>
+  <text x="150" y="175" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">(React.js)</text>
+  <text x="150" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#777">Interface Utilisateur</text>
+
+  <!-- Controller Block -->
+  <rect x="550" y="100" width="200" height="120" rx="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="2" />
+  <text x="650" y="145" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#EF6C00">Contrôleur</text>
+  <text x="650" y="175" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">(Express.js API)</text>
+  <text x="650" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#777">Logique Métier</text>
+
+  <!-- Model Block -->
+  <rect x="300" y="330" width="200" height="120" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" />
+  <text x="400" y="375" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#2E7D32">Modèle</text>
+  <text x="400" y="405" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">(Sequelize / MySQL)</text>
+  <text x="400" y="425" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#777">Gestion des Données</text>
+
+  <!-- Arrows -->
+  <!-- View to Controller -->
+  <path d="M 250 160 L 540 160" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <text x="400" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">1. Actions &amp; Requêtes HTTP</text>
+
+  <!-- Controller to Model -->
+  <path d="M 600 220 L 450 320" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <text x="560" y="270" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">2. Appels Logiques</text>
+
+  <!-- Model to View (Data returning) -->
+  <path d="M 350 320 L 150 220" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <text x="210" y="270" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">3. Données JSON</text>
+</svg>

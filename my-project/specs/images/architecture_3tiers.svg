@@ -1,0 +1,40 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="white" />
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">Figure 3.3 : Architecture 3-tiers de la plateforme StageFlow</text>
+
+  <!-- Definitions for arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#444" />
+    </marker>
+  </defs>
+
+  <!-- Tier 1: Presentation Layer -->
+  <rect x="150" y="80" width="500" height="120" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2" />
+  <text x="400" y="115" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#1565C0">Couche Présentation (Client)</text>
+  <text x="400" y="145" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">Technologies : React.js, Vite.js, Tailwind CSS</text>
+  <text x="400" y="165" font-family="Arial, sans-serif" font-size="12" font-style="italic" text-anchor="middle" fill="#777">Interface utilisateur et gestion de l'affichage</text>
+
+  <!-- Communication Arrow 1 -->
+  <path d="M 400 200 L 400 270" stroke="#444" stroke-width="2" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowhead)" />
+  <text x="420" y="240" font-family="Arial, sans-serif" font-size="12" fill="#333">Requêtes HTTP / API REST</text>
+
+  <!-- Tier 2: Logic Layer -->
+  <rect x="150" y="280" width="500" height="120" rx="8" fill="#FFF3E0" stroke="#EF6C00" stroke-width="2" />
+  <text x="400" y="315" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#EF6C00">Couche Logique (Serveur API)</text>
+  <text x="400" y="345" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">Technologies : Node.js, Express.js</text>
+  <text x="400" y="365" font-family="Arial, sans-serif" font-size="12" font-style="italic" text-anchor="middle" fill="#777">Logique métier, Authentification, Services</text>
+
+  <!-- Communication Arrow 2 -->
+  <path d="M 400 400 L 400 470" stroke="#444" stroke-width="2" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowhead)" />
+  <text x="420" y="440" font-family="Arial, sans-serif" font-size="12" fill="#333">Requêtes SQL via Sequelize</text>
+
+  <!-- Tier 3: Data Layer -->
+  <rect x="150" y="480" width="500" height="100" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" />
+  <text x="400" y="515" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#2E7D32">Couche Données (Persistance)</text>
+  <text x="400" y="545" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">SGBD : MySQL</text>
+  <text x="400" y="565" font-family="Arial, sans-serif" font-size="12" font-style="italic" text-anchor="middle" fill="#777">Stockage et gestion des données relationnelles</text>
+</svg>

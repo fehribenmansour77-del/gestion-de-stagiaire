@@ -1,0 +1,92 @@
+@startuml Diagramme_Classe_Module_Candidature
+
+' ============================================================
+'  DIAGRAMME DE CLASSE : MODULE CANDIDATURES
+' ============================================================
+
+scale 1.0
+hide empty members
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #E67E22
+  BorderThickness 1.5
+  HeaderBackgroundColor #FDF2E9
+  FontColor #2C3E50
+  FontSize 12
+  AttributeFontSize 10
+  StereotypeFontSize 9
+  StereotypeFontColor #7F8C8D
+  ArrowColor #E67E22
+}
+
+skinparam arrow {
+  Color #E67E22
+  FontColor #D35400
+  FontSize 10
+  Thickness 1.5
+}
+
+class Candidature {
+  - id : Integer <<PK>>
+  - nom : String(100)
+  - prenom : String(100)
+  - email : String(255)
+  - telephone : String(20)
+  - etablissement : String(255)
+  - filiere : String(255)
+  - niveau_etude : String(100)
+  - departement_souhaite : Integer <<FK>>
+  - date_debut : Date
+  - date_fin : Date
+  - theme : Text
+  - type_stage : Enum {pfe, ete, initiation, professionnel}
+  - cv_url : String(500)
+  - lm_url : String(500)
+  - statut : Enum {en_attente, en_cours, documents_manquants, liste_attente, acceptee, refusee, annulee}
+  - numero_suivi : String(20) <<unique>>
+  - score_matching : Integer
+  - commentaire : Text
+  - date_soumission : DateTime
+  - date_traitement : DateTime
+  - date_acceptation : DateTime
+  - date_refus : DateTime
+  - created_at : DateTime
+  __
+  + accepter(commentaire) : void
+  + refuser(commentaire) : void
+  + traiter() : void
+  + demanderDocuments(commentaire) : void
+  + annuler(commentaire) : void
+  + {static} generateSuiviNumber() : String
+}
+
+class Departement {
+  - id : Integer <<PK>>
+  - nom : String(100)
+  - code : String(20)
+}
+
+class Convention {
+  - id : Integer <<PK>>
+  - candidature_id : Integer <<FK>>
+  - numero : String(50) <<unique>>
+  - statut : Enum
+}
+
+' Relations
+Candidature "0..*" -- "0..1" Departement : vers (souhaité) >
+Convention "0..1" -- "1" Candidature : basée sur >
+
+note bottom of Candidature
+  Le champ **score_matching**
+  est calculé automatiquement
+  par le module IA/parsing de CV.
+end note
+
+@enduml

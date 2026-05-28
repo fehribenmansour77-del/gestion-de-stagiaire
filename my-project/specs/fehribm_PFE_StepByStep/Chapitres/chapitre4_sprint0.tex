@@ -1,0 +1,42 @@
+% ============================================================
+% CHAPITRE 4 : SPRINT 0
+% Mise en place de l'environnement et Site Vitrine
+% ============================================================
+
+\section{Introduction}
+Avant de commencer à développer les fonctionnalités principales de notre plateforme StageFlow, nous avons d'abord besoin de préparer le terrain. C'est exactement le rôle du Sprint 0, aussi appelé \textit{Sprint d'initialisation}.
+
+Ce sprint ne produit pas de fonctionnalités directement utilisables par les utilisateurs, mais il met en place tout ce qu'il faut pour que le travail avance correctement dans les sprints suivants. C'est un peu comme préparer les fondations d'une maison avant de construire les murs.
+
+Concrètement, dans ce sprint, nous allons :
+\begin{itemize}
+    \item Installer et configurer les outils de développement (React pour le Frontend, Node.js pour le Backend, MySQL pour la base de données).
+    \item Définir la structure du code source et organiser les dossiers du projet.
+    \item Créer le \textbf{site vitrine} de l'entreprise GIAS Industries, c'est-à-dire la page d'accueil visible par les visiteurs.
+    \item Mettre en place le système de navigation de l'application (la barre latérale appelée Sidebar).
+    \item Préparer la base de données et créer les modèles nécessaires avec l'ORM Sequelize.
+\end{itemize}
+
+%% =======================================
+%% 4.1 BACKLOG DU SPRINT 0
+%% =======================================
+\section{Backlog du Sprint 0}
+
+Le backlog regroupe toutes les tâches à réaliser pendant ce sprint. Chaque tâche est formulée sous forme de \textit{User Story}, c'est-à-dire une phrase simple qui décrit ce que l'utilisateur ou le développeur souhaite faire.
+
+\subsection{User Stories du Sprint 0}
+
+\begin{center}
+\begin{tabular}{|p{1cm}|p{6cm}|p{2cm}|p{5cm}|}
+\hline
+\textbf{ID} & \textbf{User Story} & \textbf{Priorité} & \textbf{Critères d'acceptation} \\ \hline
+\textbf{US0.1} & En tant que \textbf{développeur}, je veux initialiser le projet avec les bons outils (React, Node.js, MySQL) pour avoir un environnement de travail fonctionnel. & Haute & Le serveur Frontend et le serveur Backend démarrent sans erreurs. \\ \hline
+\textbf{US0.2} & En tant que \textbf{visiteur}, je veux accéder à un site vitrine qui présente l'entreprise GIAS Industries. & Haute & La page d'accueil s'affiche correctement avec toutes les sections de présentation. \\ \hline
+\textbf{US0.3} & En tant que \textbf{développeur}, je veux organiser la base de données avec un ORM pour faciliter les requêtes. & Haute & Les modèles Sequelize sont bien définis et les relations entre les tables fonctionnent. \\ \hline
+\textbf{US0.4} & En tant qu'\textbf{utilisateur connecté}, je veux naviguer dans l'application grâce à une barre latérale claire. & Moyenne & Le Sidebar affiche les bons menus selon le rôle de chaque utilisateur. \\ \hline
+\end{tabular}
+\captionof{table}{Backlog du Sprint 0}
+\end{center}
+
+\subsection{Planification du Sprint}
+Ce sprint est planifié sur une durée de \textbf{2 semaines}. Il couvre uniquement la mise en place de l'infrastructure technique et la création du site vitrine de l'entreprise.

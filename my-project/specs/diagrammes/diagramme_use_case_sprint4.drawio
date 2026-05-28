@@ -1,0 +1,96 @@
+<mxfile host="app.diagrams.net" modified="2026-05-21T13:50:00.000Z" agent="5.0" version="24.0.0" type="device">
+  <diagram id="usecase-sprint4" name="Sprint 4 - Conventions, Documents &amp; Notifications">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- SYSTEM BOUNDARY -->
+        <mxCell id="sys_box" value="StageFlow -- Sprint 4 (Conventions, Documents &amp; Notifications)" style="swimlane;whiteSpace=wrap;html=1;fontStyle=1;align=center;horizontal=1;startSize=30;fillColor=#1a237e;strokeColor=#3949ab;fontColor=#ffffff;rounded=1;arcSize=4;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="80" width="580" height="660" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES -->
+        <mxCell id="uc_generer_conv" value="Générer automatiquement la convention&#xa;de stage en PDF" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b71c1c;strokeColor=#e53935;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="50" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_signer_conv" value="Signer la convention de stage" style="ellipse;whiteSpace=wrap;html=1;fillColor=#004d40;strokeColor=#00796b;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="150" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_telecharger" value="Télécharger ses documents&#xa;(Attestation, Convention)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#004d40;strokeColor=#00796b;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="260" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_archivage" value="Programmer l'archivage automatique&#xa;des documents" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b71c1c;strokeColor=#e53935;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="370" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_notif" value="Recevoir des notifications&#xa;(Email &amp; SMS via API)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4a148c;strokeColor=#7b1fa2;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="480" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_chat" value="Envoyer un message interne" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4a148c;strokeColor=#7b1fa2;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="575" width="220" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- ACTORS -->
+        <mxCell id="act_admin" value="Admin RH" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#b71c1c;strokeColor=#e53935;fontColor=#b71c1c;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="40" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_stagiaire" value="Stagiaire" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#004d40;strokeColor=#00796b;fontColor=#004d40;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="460" width="40" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_tuteur" value="Tuteur" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#4a148c;strokeColor=#7b1fa2;fontColor=#4a148c;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="960" y="380" width="40" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- LINKS -->
+        <!-- Admin RH -->
+        <mxCell id="l_adm_gen" style="endArrow=none;html=1;strokeColor=#e53935;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_admin" target="uc_generer_conv" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_adm_sign" style="endArrow=none;html=1;strokeColor=#e53935;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_admin" target="uc_signer_conv" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_adm_arch" style="endArrow=none;html=1;strokeColor=#e53935;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_admin" target="uc_archivage" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Stagiaire -->
+        <mxCell id="l_stag_sign" style="endArrow=none;html=1;strokeColor=#00796b;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_stagiaire" target="uc_signer_conv" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_stag_tel" style="endArrow=none;html=1;strokeColor=#00796b;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_stagiaire" target="uc_telecharger" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_stag_notif" style="endArrow=none;html=1;strokeColor=#00796b;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_stagiaire" target="uc_notif" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_stag_chat" style="endArrow=none;html=1;strokeColor=#00796b;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_stagiaire" target="uc_chat" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Tuteur -->
+        <mxCell id="l_tut_notif" style="endArrow=none;html=1;strokeColor=#7b1fa2;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_tuteur" target="uc_notif" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_tut_chat" style="endArrow=none;html=1;strokeColor=#7b1fa2;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_tuteur" target="uc_chat" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Admin RH also receives notifications and chats -->
+        <mxCell id="l_adm_notif" style="endArrow=none;html=1;strokeColor=#e53935;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_admin" target="uc_notif" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_adm_chat" style="endArrow=none;html=1;strokeColor=#e53935;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_admin" target="uc_chat" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

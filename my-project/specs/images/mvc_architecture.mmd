@@ -1,0 +1,29 @@
+graph TD
+    subgraph "Vue (React.js)"
+        V[Interface Utilisateur]
+        C1[Composants UI]
+    end
+
+    subgraph "Contrôleur (Express.js)"
+        R[Routes API]
+        S[Services Métier]
+    end
+
+    subgraph "Modèle (Sequelize)"
+        M[Modèles de Données]
+        DB[(Base de Données MySQL)]
+    end
+
+    V -->|Actions & Requêtes| R
+    R -->|Appels Logiques| S
+    S -->|Requêtes ORM| M
+    M -->|Requêtes SQL| DB
+    DB -->|Résultats SQL| M
+    M -->|Objets de Données| S
+    S -->|Données JSON| R
+    R -->|Mise à jour UI| V
+
+    style V fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style R fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style M fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style DB fill:#f5f5f5,stroke:#424242,stroke-width:2px

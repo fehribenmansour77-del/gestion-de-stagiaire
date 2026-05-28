@@ -1,0 +1,106 @@
+
+\section{Introduction}
+Ce chapitre constitue une étude théorique et technique sur l'environnement de notre projet. Nous allons dans un premier temps présenter le domaine général de la gestion des ressources humaines et sa digitalisation. Ensuite, nous explorerons l'apport de l'intelligence artificielle dans le processus de recrutement, avant de justifier les choix technologiques retenus pour la réalisation de la plateforme "StageFlow".
+
+\section{Présentation du domaine général}
+\subsection{Définition des systèmes SIRH}
+Un Système d'Information des Ressources Humaines (SIRH) est une interface entre la gestion des ressources humaines (GRH) et les technologies de l'information. Il permet d'automatiser un grand nombre de processus liés à la gestion du personnel, allant du recrutement à la paie, en passant par la gestion des compétences et des carrières.
+
+\subsection{Évolution de la gestion des stagiaires}
+Traditionnellement basée sur des processus manuels et physiques, la gestion des stages a évolué vers une dématérialisation progressive. Aujourd'hui, on ne se contente plus de stocker des CV, mais on cherche à intégrer les stagiaires dans un véritable écosystème numérique qui facilite leur intégration (Onboarding) et leur évaluation continue.
+
+\subsection{Enjeux de la digitalisation des processus de stage}
+L'intégration des technologies numériques dans la gestion des stagiaires répond à plusieurs enjeux stratégiques :
+\begin{itemize}
+    \item \textbf{La réactivité :} Automatiser les réponses et le suivi pour ne pas perdre les meilleurs profils d'étudiants.
+    \item \textbf{La conformité :} Garantir le respect rigoureux des cadres réglementaires et des conventions de stage au sein du groupe GIAS.
+    \item \textbf{L'efficacité opérationnelle :} Réduire la charge de travail administrative des RH et des tuteurs grâce à la centralisation des données.
+\end{itemize}
+
+\section{Revues de solutions existantes}
+Plusieurs approches coexistent actuellement sur le marché pour répondre aux besoins de gestion des ressources humaines.
+
+\subsection{Solutions SIRH commerciales}
+Il existe de grandes solutions propriétaires telles que \textbf{SAP SuccessFactors} ou \textbf{Talentsoft}. Bien que très complètes, ces plateformes sont souvent coûteuses et peu adaptées à une gestion agile des stagiaires dans une structure locale comme GIAS.
+
+\subsection{Solutions Open Source}
+Des outils comme \textbf{OrangeHRM} offrent des alternatives intéressantes. Elles permettent une certaine flexibilité, mais ne proposent pas nativement d'algorithmes de matching intelligents pour le tri automatique des CV.
+
+\subsection{Technologies utilisées dans les systèmes RH modernes}
+Les systèmes actuels s'appuient de plus en plus sur le Cloud Computing pour un accès permanent aux données et sur les APIs REST pour la communication entre les différents services.
+
+\subsection{Limites des solutions actuelles pour les PME}
+La complexité d'utilisation et l'absence de tri intelligent restent les limites les plus critiques. C'est pour pallier ces lacunes que nous avons intégré l'intelligence artificielle dans StageFlow.
+
+\section{Concepts liés aux systèmes de gestion intégrés (SIRH)}
+La mise en place d'un système SIRH repose sur des piliers fondamentaux :
+
+\subsection{Centralisation et unicité de l'information}
+Comme dans un ERP, l'unicité de l'information est primordiale. Toutes les données relatives aux stagiaires, aux tuteurs et aux départements du groupe GIAS sont centralisées dans une base de données unique.
+
+\subsection{Modélisation des processus (Workflow)}
+Le système permet de modéliser le flux de travail du recrutement. Chaque candidature suit un parcours prédéfini (réception, analyse IA, validation), ce qui permet d'automatiser les tâches comme la génération des conventions.
+
+\subsection{Pilotage et aide à la décision}
+L'un des concepts clés est l'utilisation des données pour le pilotage. Grâce aux scores de matching, le responsable RH dispose d'un outil d'aide à la décision pour sélectionner les meilleurs profils.
+
+\section{L'intelligence artificielle}
+L'intelligence artificielle (IA) est devenue un outil indispensable pour simplifier le travail quotidien des responsables RH, surtout pour traiter un grand nombre de dossiers.
+
+\subsection{L'IA au service de la compréhension des profils}
+Au lieu de simplement stocker des informations, l'IA nous aide à "comprendre" le profil de chaque étudiant. Elle analyse les compétences écrites dans les CV pour voir si elles correspondent vraiment à ce que l'entreprise recherche.
+
+\subsection{Anticiper la réussite du stage grâce au scoring}
+Grâce au \textbf{Matching Score}, l'IA estime si le candidat va bien réussir son stage au sein du groupe GIAS, permettant de mettre en avant les profils les plus prometteurs dès le premier coup d'œil.
+
+\subsection{Le rôle de l'IA dans StageFlow : Un assistant intelligent}
+Dans notre projet, l'IA agit comme un assistant précieux. Elle s'occupe du tri initial intelligent, permettant au responsable RH de gagner un temps précieux et de se concentrer sur l'aspect humain.
+
+\section{Architecture technique et choix du modèle}
+
+\subsection{Architecture Client-Serveur (REST API)}
+StageFlow repose sur une architecture Client-Serveur moderne. Cette structure permet une séparation claire entre la partie visuelle (Front-end) et la logique métier (Back-end). 
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{Images/votre_image_1.png}
+    \caption{Représentation de l'architecture Client-Serveur}
+\end{figure}
+
+\subsection{Choix de la Stack Technique}
+Nous avons choisi React pour sa réactivité et Node.js pour sa robustesse. Ce choix permet de gérer le moteur de matching IA de manière fluide sans bloquer l'interface utilisateur.
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{Images/votre_image_2.png}
+    \caption{Flux de données et Stack technique retenue}
+\end{figure}
+
+\subsection{Schéma de l'infrastructure technique}
+Le schéma suivant montre comment les différents services (Authentification, IA, Base de données) sont reliés entre eux pour assurer le bon fonctionnement du système.
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{Images/votre_image_3.png}
+    \caption{Détails de l'infrastructure technique StageFlow}
+\end{figure}
+
+\section{Sécurité et intégrité des données}
+
+\subsection{Authentification et contrôle d'accès}
+Nous utilisons un système de rôles (RBAC) pour garantir que chaque personne ne voit que ce qui la concerne. L'authentification est sécurisée par des jetons JWT.
+
+\subsection{Protection de l'intégrité des informations}
+Le système s'assure que toutes les informations enregistrées sont correctes et complètes, garantissant ainsi une base de données fiable pour le groupe GIAS.
+
+\subsection{Confidentialité et hachage des mots de passe}
+La confidentialité est respectée grâce au hachage des mots de passe, assurant qu'ils sont transformés en codes illisibles dans la base de données.
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{Images/votre_image_securite.png}
+    \caption{Schéma de l'architecture de sécurité des données}
+\end{figure}
+
+\section{Conclusion}
+Ce chapitre nous a permis de poser les bases théoriques et techniques de notre projet. En comprenant le domaine du SIRH et l'apport de l'IA, nous sommes désormais prêts à passer à la phase d'analyse des besoins.

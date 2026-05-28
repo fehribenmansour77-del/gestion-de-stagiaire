@@ -1,0 +1,252 @@
+@startuml Diagramme_Cas_Utilisation_StageFlow
+
+' ============================================================
+'  DIAGRAMME DE CAS D'UTILISATION GÉNÉRAL — StageFlow
+'  Plateforme de Gestion de Stagiaires
+' ============================================================
+
+top to bottom direction
+scale 1.0
+
+' --- Thème professionnel ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
+
+skinparam rectangle {
+  BackgroundColor #F8F9FD
+  BorderColor #4A6FA5
+  RoundCorner 12
+  FontColor #2C3E50
+  FontSize 15
+  FontStyle bold
+  BorderThickness 2
+}
+
+skinparam package {
+  BackgroundColor #EEF1F8
+  BorderColor #7B8EC8
+  BorderThickness 1.5
+  RoundCorner 8
+  FontSize 13
+  FontColor #34495E
+  FontStyle bold
+  Style rectangle
+}
+
+skinparam usecase {
+  BackgroundColor #FFFFFF
+  BorderColor #5B7FC7
+  BorderThickness 1.5
+  FontColor #2C3E50
+  FontSize 10
+  ArrowColor #4A6FA5
+  StereotypeFontColor #7F8C8D
+  StereotypeFontSize 9
+}
+
+skinparam actor {
+  BackgroundColor #D5DBEF
+  BorderColor #3F51B5
+  FontColor #1A237E
+  FontSize 11
+  FontStyle bold
+}
+
+skinparam arrow {
+  Color #5B7FC7
+  FontColor #5B7FC7
+  FontSize 9
+  Thickness 1.5
+}
+
+skinparam note {
+  BackgroundColor #FFFDE7
+  BorderColor #FBC02D
+  FontColor #333333
+  FontSize 9
+}
+
+' ============================================================
+'  ACTEURS
+' ============================================================
+
+actor "Stagiaire" as Stagiaire
+actor "Tuteur /\nEncadrant" as Tuteur
+actor "Admin RH" as AdminRH
+actor "Super\nAdmin" as SuperAdmin
+actor "Système" as Systeme <<system>>
+
+' --- Héritage ---
+AdminRH <|-- SuperAdmin
+
+' ============================================================
+'  SYSTÈME PRINCIPAL
+' ============================================================
+
+rectangle "**Système StageFlow** — Plateforme de Gestion de Stagiaires" as System {
+
+  ' ──────────────────────────────────────────────
+  '  Authentification & Gestion de Compte
+  ' ──────────────────────────────────────────────
+  package "Authentification & Compte" as pkg_auth {
+    usecase "S'authentifier" as UC_Auth
+    usecase "S'inscrire" as UC_Inscrire
+    usecase "Vérifier OTP\npar email" as UC_OTP
+    usecase "Gérer son profil" as UC_Profil
+    usecase "Réinitialiser le\nmot de passe" as UC_ResetPwd
+  }
+
+  ' ──────────────────────────────────────────────
+  '  Gestion des Candidatures
+  ' ──────────────────────────────────────────────
+  package "Gestion des Candidatures" as pkg_cand {
+    usecase "Soumettre une\ncandidature" as UC_SoumettreC
+    usecase "Suivre sa\ncandidature" as UC_SuivreC
+    usecase "Traiter les\ncandidatures" as UC_TraiterC
+    usecase "Évaluer une\ncandidature (IA)" as UC_EvaluerC
+  }
+
+  ' ──────────────────────────────────────────────
+  '  Gestion des Stagiaires
+  ' ──────────────────────────────────────────────
+  package "Gestion des Stagiaires" as pkg_stag {
+    usecase "Consulter la liste\ndes stagiaires" as UC_ListeStag
+    usecase "Gérer les\nstagiaires" as UC_GererStag
+    usecase "Archiver un\nstagiaire" as UC_ArchiverStag
+    usecase "Assigner un\ntuteur" as UC_AssignerTut
+  }
+
+  ' ──────────────────────────────────────────────
+  '  Gestion des Présences
+  ' ──────────────────────────────────────────────
+  package "Gestion des Présences" as pkg_pres {
+    usecase "Consulter ses\nprésences" as UC_ConsulterPres
+    usecase "Gérer les\nprésences" as UC_GererPres
+  }
+
+  ' ──────────────────────────────────────────────
+  '  Gestion des Évaluations
+  ' ──────────────────────────────────────────────
+  package "Gestion des Évaluations" as pkg_eval {
+    usecase "Consulter ses\névaluations" as UC_ConsulterEval
+    usecase "Créer une\névaluation" as UC_CreerEval
+    usecase "Valider une\névaluation" as UC_ValiderEval
+  }
+
+  ' ──────────────────────────────────────────────
+  '  Gestion Documentaire
+  ' ──────────────────────────────────────────────
+  package "Gestion Documentaire" as pkg_doc {
+    usecase "Générer une\nconvention de stage" as UC_GenConvention
+    usecase "Générer une\nattestation" as UC_GenAttest
+    usecase "Gérer les\ndocuments" as UC_GererDoc
+  }
+
+  ' ──────────────────────────────────────────────
+  '  Administration & Supervision
+  ' ──────────────────────────────────────────────
+  package "Administration & Supervision" as pkg_admin {
+    usecase "Consulter le\ntableau de bord" as UC_Dashboard
+    usecase "Gérer les\nutilisateurs" as UC_GererUsers
+    usecase "Gérer les\ndépartements" as UC_GererDepts
+    usecase "Consulter les\nnotifications" as UC_Notifs
+    usecase "Consulter les\nlogs d'audit" as UC_AuditLogs
+  }
+
+  ' ──────────────────────────────────────────────
+  '  Système Intelligent
+  ' ──────────────────────────────────────────────
+  package "Système Intelligent (IA)" as pkg_ia {
+    usecase "Calculer le score\nde matching" as UC_Matching
+    usecase "Recherche\nintelligente" as UC_Search
+  }
+}
+
+' ============================================================
+'  ASSOCIATIONS ACTEUR → CAS D'UTILISATION
+' ============================================================
+
+' --- Stagiaire ---
+Stagiaire --> UC_Auth
+Stagiaire --> UC_Inscrire
+Stagiaire --> UC_Profil
+Stagiaire --> UC_ResetPwd
+Stagiaire --> UC_SoumettreC
+Stagiaire --> UC_SuivreC
+Stagiaire --> UC_ConsulterPres
+Stagiaire --> UC_ConsulterEval
+Stagiaire --> UC_Notifs
+
+' --- Tuteur / Encadrant ---
+Tuteur --> UC_Auth
+Tuteur --> UC_Profil
+Tuteur --> UC_ListeStag
+Tuteur --> UC_GererPres
+Tuteur --> UC_CreerEval
+Tuteur --> UC_ConsulterEval
+Tuteur --> UC_Dashboard
+Tuteur --> UC_Notifs
+
+' --- Admin RH ---
+AdminRH --> UC_Auth
+AdminRH --> UC_Profil
+AdminRH --> UC_TraiterC
+AdminRH --> UC_GererStag
+AdminRH --> UC_GererDoc
+AdminRH --> UC_GenConvention
+AdminRH --> UC_GenAttest
+AdminRH --> UC_GererDepts
+AdminRH --> UC_Dashboard
+AdminRH --> UC_ValiderEval
+AdminRH --> UC_Notifs
+
+' --- Super Admin ---
+SuperAdmin --> UC_GererUsers
+SuperAdmin --> UC_AuditLogs
+
+' --- Système ---
+Systeme --> UC_Matching
+Systeme --> UC_Search
+
+' ============================================================
+'  RELATIONS <<include>> et <<extend>>
+' ============================================================
+
+' --- Includes ---
+UC_Inscrire ..> UC_OTP : <<include>>
+UC_Auth ..> UC_OTP : <<include>>
+
+' --- Extends ---
+UC_EvaluerC ..> UC_TraiterC : <<extend>>
+UC_ArchiverStag ..> UC_GererStag : <<extend>>
+UC_AssignerTut ..> UC_GererStag : <<extend>>
+UC_GenConvention ..> UC_GererDoc : <<extend>>
+UC_GenAttest ..> UC_GererDoc : <<extend>>
+UC_Matching ..> UC_EvaluerC : <<extend>>
+UC_Search ..> UC_ListeStag : <<extend>>
+
+' ============================================================
+'  NOTES
+' ============================================================
+
+note right of Systeme
+  Service automatisé de matching
+  basé sur les compétences,
+  et recherche multi-critères
+end note
+
+note bottom of UC_OTP
+  Vérification par code OTP
+  envoyé par email (SMTP)
+end note
+
+note right of UC_Dashboard
+  KPIs : Nombre de stagiaires,
+  Taux de présence,
+  Candidatures en cours,
+  Répartition par département
+end note
+
+@enduml

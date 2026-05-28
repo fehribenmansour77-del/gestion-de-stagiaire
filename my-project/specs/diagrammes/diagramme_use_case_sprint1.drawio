@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" modified="2026-05-21T13:42:00.000Z" agent="5.0" version="24.0.0" type="device">
+  <diagram id="usecase-sprint1-exact" name="Sprint 1 - Authentification &amp; Offres">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- SYSTEM BOUNDARY -->
+        <mxCell id="sys_box" value="StageFlow -- Sprint 1 (Authentification &amp; Offres de Stage)" style="swimlane;whiteSpace=wrap;html=1;fontStyle=1;align=center;horizontal=1;startSize=30;fillColor=#1a237e;strokeColor=#3949ab;fontColor=#ffffff;rounded=1;arcSize=4;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="80" width="580" height="600" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES -->
+        <mxCell id="uc_register" value="S'inscrire" style="ellipse;whiteSpace=wrap;html=1;fillColor=#004d40;strokeColor=#00796b;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="60" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_otp" value="Vérifier le code OTP" style="ellipse;whiteSpace=wrap;html=1;fillColor=#004d40;strokeColor=#00796b;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="170" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_auth" value="S'authentifier" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e65100;strokeColor=#f57c00;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="290" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_reset" value="Réinitialiser le mot de passe" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e65100;strokeColor=#f57c00;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="400" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_offres" value="Gérer les offres de stage" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b71c1c;strokeColor=#e53935;fontColor=#ffffff;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="sys_box">
+          <mxGeometry x="180" y="500" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- RELATION -->
+        <mxCell id="rel_reg_otp" style="endArrow=open;endSize=12;dashed=1;html=1;strokeColor=#00796b;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="uc_register" target="uc_otp" parent="sys_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_reg_otp" value="&lt;i&gt;&amp;lt;&amp;lt;include&amp;gt;&amp;gt;&lt;/i&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#004d40;" vertex="1" connectable="0" parent="rel_reg_otp">
+          <mxGeometry x="0.1" relative="1" as="geometry"><mxPoint x="35" as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- ACTORS -->
+        <mxCell id="act_visiteur" value="Visiteur / Candidat" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#004d40;strokeColor=#00796b;fontColor=#004d40;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="40" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_admin" value="Admin RH" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#b71c1c;strokeColor=#e53935;fontColor=#b71c1c;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="960" y="380" width="40" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- LINKS -->
+        <mxCell id="link_vis_reg" style="endArrow=none;html=1;strokeColor=#00796b;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_visiteur" target="uc_register" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_vis_auth" style="endArrow=none;html=1;strokeColor=#00796b;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_visiteur" target="uc_auth" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_vis_reset" style="endArrow=none;html=1;strokeColor=#00796b;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_visiteur" target="uc_reset" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_adm_auth" style="endArrow=none;html=1;strokeColor=#e53935;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_admin" target="uc_auth" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_adm_reset" style="endArrow=none;html=1;strokeColor=#e53935;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_admin" target="uc_reset" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link_adm_offres" style="endArrow=none;html=1;strokeColor=#e53935;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="act_admin" target="uc_offres" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

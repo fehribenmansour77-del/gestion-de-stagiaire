@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Diagramme de Classe Simplifié — StageFlow</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #f8fafc; font-family: 'Segoe UI', Tahoma, sans-serif; padding: 40px 20px; }
+h1 { text-align: center; font-size: 24px; color: #1e293b; margin-bottom: 8px; font-weight: 700; }
+p.subtitle { text-align: center; font-size: 14px; color: #64748b; margin-bottom: 40px; }
+.canvas { position: relative; width: 1250px; height: 900px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; }
+.cls { position: absolute; border: 2px solid #D4881E; background: #ffffff; border-radius: 8px; font-size: 11px; box-shadow: 0 2px 8px rgba(212, 136, 30, 0.08); transition: transform 0.2s; }
+.cls:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(212, 136, 30, 0.15); }
+.cls .title { background: #F5A623; color: #ffffff; font-weight: bold; font-size: 13px; text-align: center; padding: 8px 12px; border-bottom: 2px solid #D4881E; border-top-left-radius: 6px; border-top-right-radius: 6px; }
+.cls .attrs, .cls .meths { padding: 8px 12px; color: #334155; line-height: 1.6; }
+.cls .meths { border-top: 1px dashed #e2e8f0; background: #fafaf9; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; }
+svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+svg line, svg path { stroke: #64748b; stroke-width: 1.8; fill: none; }
+svg text { font-size: 10px; fill: #475569; font-family: 'Segoe UI', sans-serif; font-weight: 500; }
+svg polygon { fill: #64748b; stroke: #64748b; }
+svg polygon.hollow { fill: #ffffff; stroke: #64748b; stroke-width: 1.8; }
+</style>
+</head>
+<body>
+<h1>Diagramme de Classe Simplifié — StageFlow</h1>
+<p class="subtitle">Modèle conceptuel centré sur le cœur métier de la gestion des stagiaires (PFE)</p>
+<div class="canvas" id="canvas">
+
+<!-- ROW 1: Organisation & Utilisateurs -->
+<div class="cls" id="dept" style="left:150px;top:40px;width:250px;">
+<div class="title">Departement</div>
+<div class="attrs">- id : Integer «PK»<br>- nom : String<br>- code : String «unique»<br>- entity : Enum {GIAS, CSM}<br>- responsable_id : Integer «FK»</div>
+<div class="meths">+ activer() : void<br>+ desactiver() : void</div>
+</div>
+
+<div class="cls" id="user" style="left:550px;top:20px;width:270px;">
+<div class="title">Utilisateur</div>
+<div class="attrs">- id : Integer «PK»<br>- email : String «unique»<br>- password_hash : String<br>- nom : String<br>- prenom : String<br>- role : Enum {admin, tuteur, stagiaire}<br>- telephone : String<br>- is_active : Boolean</div>
+<div class="meths">+ validatePassword() : Boolean<br>+ getFullName() : String</div>
+</div>
+
+<!-- ROW 2: Candidatures & Stagiaires & Presence -->
+<div class="cls" id="cand" style="left:150px;top:340px;width:250px;">
+<div class="title">Candidature</div>
+<div class="attrs">- id : Integer «PK»<br>- nom : String<br>- prenom : String<br>- email : String<br>- etablissement : String<br>- filiere : String<br>- type_stage : Enum {pfe, ete, initiation}<br>- statut : Enum {en_attente, acceptee, ...}<br>- score_matching : Integer</div>
+<div class="meths">+ accepter() : void<br>+ refuser() : void</div>
+</div>
+
+<div class="cls" id="stag" style="left:550px;top:340px;width:270px;">
+<div class="title">Stagiaire</div>
+<div class="attrs">- id : Integer «PK»<br>- utilisateur_id : Integer «FK»<br>- etablissement : String<br>- filiere : String<br>- niveau_etude : String<br>- date_demarrage : Date<br>- date_fin : Date<br>- departement_id : Integer «FK»<br>- tuteur_id : Integer «FK»<br>- statut : Enum {actif, termine}</div>
+<div class="meths">+ terminer() : void<br>+ archiver() : void</div>
+</div>
+
+<div class="cls" id="pres" style="left:950px;top:360px;width:220px;">
+<div class="title">Presence</div>
+<div class="attrs">- id : Integer «PK»<br>- stage_id : Integer «FK»<br>- date : Date<br>- statut : Enum {P, AJ, ANJ}<br>- heure_entree : Time<br>- heure_sortie : Time<br>- valide : Boolean</div>
+<div class="meths">+ valider(userId) : void</div>
+</div>
+
+<!-- ROW 3: Conventions & Documents & Evaluations -->
+<div class="cls" id="conv" style="left:150px;top:670px;width:250px;">
+<div class="title">Convention</div>
+<div class="attrs">- id : Integer «PK»<br>- candidature_id : Integer «FK»<br>- numero : String «unique»<br>- fichier_genere : String<br>- fichier_signe : String<br>- statut : Enum {generee, signee}</div>
+<div class="meths">+ signer() : void</div>
+</div>
+
+<div class="cls" id="doc" style="left:460px;top:670px;width:230px;">
+<div class="title">Document</div>
+<div class="attrs">- id : Integer «PK»<br>- stage_id : Integer «FK»<br>- type : Enum {ATTESTATION, RAPPORT}<br>- fichier_path : String<br>- genere_par : Integer «FK»</div>
+<div class="meths">+ generer() : void</div>
+</div>
+
+<div class="cls" id="eval" style="left:810px;top:670px;width:250px;">
+<div class="title">Evaluation</div>
+<div class="attrs">- id : Integer «PK»<br>- stage_id : Integer «FK»<br>- tuteur_id : Integer «FK»<br>- type : Enum {INTEGRATION, FINALE}<br>- note_technique : Decimal<br>- note_comportement : Decimal<br>- note_totale : Decimal<br>- mention : String<br>- statut : Enum {BROUILLON, VALIDEE}</div>
+<div class="meths">+ calculerNote() : void</div>
+</div>
+
+<svg id="lines"></svg>
+</div>
+
+<script>
+function getBox(id) {
+  const el = document.getElementById(id);
+  const c = document.getElementById('canvas');
+  return {
+    x: el.offsetLeft, y: el.offsetTop,
+    w: el.offsetWidth, h: el.offsetHeight,
+    cx: el.offsetLeft + el.offsetWidth/2,
+    cy: el.offsetTop + el.offsetHeight/2,
+    r: el.offsetLeft + el.offsetWidth,
+    b: el.offsetTop + el.offsetHeight
+  };
+}
+
+const svg = document.getElementById('lines');
+const NS = 'http://www.w3.org/2000/svg';
+
+function drawLine(x1,y1,x2,y2,label,type) {
+  const g = document.createElementNS(NS,'g');
+  const line = document.createElementNS(NS,'line');
+  line.setAttribute('x1',x1); line.setAttribute('y1',y1);
+  line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+  g.appendChild(line);
+
+  // Diamond for composition (internship aggregates presences, evaluations, documents)
+  if (type === 'comp') {
+    const angle = Math.atan2(y2-y1, x2-x1);
+    const sz = 8;
+    const px = x1, py = y1; // Diamond at source
+    const pts = [
+      [px, py],
+      [px + sz*Math.cos(angle) - sz*0.5*Math.sin(angle), py + sz*Math.sin(angle) + sz*0.5*Math.cos(angle)],
+      [px + 2*sz*Math.cos(angle), py + 2*sz*Math.sin(angle)],
+      [px + sz*Math.cos(angle) + sz*0.5*Math.sin(angle), py + sz*Math.sin(angle) - sz*0.5*Math.cos(angle)]
+    ];
+    const poly = document.createElementNS(NS,'polygon');
+    poly.setAttribute('points', pts.map(p=>p.join(',')).join(' '));
+    g.appendChild(poly);
+  }
+
+  if (label) {
+    const t = document.createElementNS(NS,'text');
+    const mx = (x1+x2)/2, my = (y1+y2)/2 - 5;
+    t.setAttribute('x', mx); t.setAttribute('y', my);
+    t.setAttribute('text-anchor','middle');
+    
+    const bg = document.createElementNS(NS,'rect');
+    t.textContent = label;
+    g.appendChild(t);
+    svg.appendChild(g);
+    
+    const bb = t.getBBox();
+    bg.setAttribute('x', bb.x-4); bg.setAttribute('y', bb.y-2);
+    bg.setAttribute('width', bb.width+8); bg.setAttribute('height', bb.height+4);
+    bg.setAttribute('fill','#ffffff'); bg.setAttribute('rx','3'); bg.setAttribute('stroke','#e2e8f0'); bg.setAttribute('stroke-width','1');
+    g.insertBefore(bg, t);
+    return;
+  }
+  svg.appendChild(g);
+}
+
+window.onload = function() {
+  const d = getBox('dept'), u = getBox('user');
+  const c = getBox('cand'), s = getBox('stag'), p = getBox('pres');
+  const cv = getBox('conv'), dc = getBox('doc'), e = getBox('eval');
+
+  // Relations:
+  // Utilisateur ↔ Departement
+  drawLine(u.x, u.y+40, d.r, d.y+40, '0..*              0..1');
+  
+  // Utilisateur ↔ Stagiaire (Composition)
+  drawLine(u.cx, u.b, s.cx, s.y, '1            0..1', 'comp');
+  
+  // Stagiaire ↔ Departement
+  drawLine(s.x, s.y+40, d.cx, d.b, '0..*              0..1');
+  
+  // Candidature ↔ Departement
+  drawLine(c.cx, c.y, d.cx, d.b, '0..*              0..1');
+  
+  // Convention ↔ Candidature
+  drawLine(cv.cx, cv.y, c.cx, c.b, '0..1              1');
+  
+  // Stagiaire ↔ Presence (Composition - diamond at Stagiaire)
+  drawLine(s.r, s.cy, p.x, p.cy, '1                 0..*', 'comp');
+  
+  // Stagiaire ↔ Document (Composition)
+  drawLine(s.cx-40, s.b, dc.cx, dc.y, '1                 0..*', 'comp');
+  
+  // Stagiaire ↔ Evaluation (Composition)
+  drawLine(s.cx+60, s.b, e.cx, e.y, '1                 0..*', 'comp');
+}
+</script>
+</body>
+</html>

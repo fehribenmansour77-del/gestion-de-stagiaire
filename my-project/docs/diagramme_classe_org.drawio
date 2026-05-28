@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram name="Module Organisation" id="Module_Organisation">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="Departement" style="swimlane;fontStyle=1;align=center;startSize=26;html=1;collapsible=0;fillColor=#2ECC71;strokeColor=#27AE60;strokeWidth=2;fontSize=12;fontColor=#FFFFFF;fontFamily=Segoe UI;rounded=0;arcSize=0;shadow=0;swimlaneLine=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="250" height="230" as="geometry"/></mxCell>
+        <mxCell id="3" value="- id : Integer «PK»&lt;br&gt;- nom : String&lt;br&gt;- code : String «unique»&lt;br&gt;- description : Text&lt;br&gt;- responsable_id : Integer «FK»&lt;br&gt;- parent_id : Integer «FK»&lt;br&gt;- entity : Enum {GIAS, CSM}&lt;br&gt;- capacite_accueil : Integer&lt;br&gt;- est_actif : Boolean" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#333333;fontSize=10;fontFamily=Segoe UI;html=1;" vertex="1" parent="2"><mxGeometry x="0" y="26" width="250" height="154" as="geometry"/></mxCell>
+        <mxCell id="4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=left;points=[];portConstraint=eastwest;strokeColor=#27AE60;html=1;" vertex="1" parent="2"><mxGeometry x="0" y="180" width="250" height="8" as="geometry"/></mxCell>
+        <mxCell id="5" value="+ deactivate() : void&lt;br&gt;+ activate() : void" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#333333;fontSize=10;fontFamily=Segoe UI;html=1;" vertex="1" parent="2"><mxGeometry x="0" y="188" width="250" height="42" as="geometry"/></mxCell>
+        <mxCell id="6" value="Utilisateur" style="swimlane;fontStyle=1;align=center;startSize=26;html=1;collapsible=0;fillColor=#2ECC71;strokeColor=#27AE60;strokeWidth=2;fontSize=12;fontColor=#FFFFFF;fontFamily=Segoe UI;rounded=0;arcSize=0;shadow=0;swimlaneLine=1;" vertex="1" parent="1"><mxGeometry x="380" y="40" width="200" height="100" as="geometry"/></mxCell>
+        <mxCell id="7" value="- id : Integer «PK»&lt;br&gt;- nom : String&lt;br&gt;- prenom : String&lt;br&gt;- role : Enum" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#333333;fontSize=10;fontFamily=Segoe UI;html=1;" vertex="1" parent="6"><mxGeometry x="0" y="26" width="200" height="74" as="geometry"/></mxCell>
+        <mxCell id="8" value="0..*     parent   0..1" style="endArrow=none;html=1;strokeColor=#555555;strokeWidth=1.5;fontSize=9;fontColor=#444444;fontFamily=Segoe UI;jumpStyle=arc;jumpSize=6;exitX=0.8;exitY=0;entryX=0.5;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" source="2" target="2" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"/></mxGeometry></mxCell>
+        <mxCell id="9" value="0..*   dirigé par   0..1" style="endArrow=none;html=1;strokeColor=#555555;strokeWidth=1.5;fontSize=9;fontColor=#444444;fontFamily=Segoe UI;jumpStyle=arc;jumpSize=6;" edge="1" source="2" target="6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="10" value="0..*   appartient   0..1" style="endArrow=none;html=1;strokeColor=#555555;strokeWidth=1.5;fontSize=9;fontColor=#444444;fontFamily=Segoe UI;jumpStyle=arc;jumpSize=6;" edge="1" source="6" target="2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
